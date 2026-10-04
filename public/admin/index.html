@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Content editor — School No. 28</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <script>
+      // Settings live in /admin/config.yml. The login server is this same website
+      // (see src/pages/api/auth.ts), so its address is filled in here at runtime.
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'nazacd/school28_web',
+            branch: 'main',
+            base_url: window.location.origin,
+            auth_endpoint: 'api/auth',
+          },
+        },
+      });
+      CMS.registerPreviewStyle('/admin/preview.css');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,276 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
+import Icon from '@/components/Icon.astro';
+import { locales, useTranslations, type Locale, type UIKey } from '@/i18n/ui';
+import { getLocalized, getLocalizedEntry } from '@/lib/content';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const page = await getLocalizedEntry('pages', lang, 'staff-leadership');
+if (!page) throw new Error('Missing src/content/pages/uz/staff-leadership.md');
+const { Content: Intro } = await render(page);
+
+const people = (await getLocalized('staff', lang)).sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name));
+const withBios = await Promise.all(people.map(async (p) => ({ ...p, Bio: (await render(p)).Content })));
+
+const groups = [
+  { id: 'leadership', key: 'staff.leadership' },
+  { id: 'teachers', key: 'staff.teachers' },
+  { id: 'support', key: 'staff.support' },
+] as const satisfies readonly { id: string; key: UIKey }[];
+const usedGroups = groups.filter((g) => people.some((p) => p.data.group === g.id));
+---
+
+<BaseLayout lang={lang} title={page.data.title} description={page.data.description}>
+  <PageHero lang={lang} title={page.data.title} lead={page.data.description} path="staff-leadership" />
+
+  <section class="section">
+    <div class="container">
+      <div class="prose intro" data-reveal><Intro /></div>
+
+      {
+        usedGroups.length > 1 && (
+          <div class="filters" role="toolbar" aria-label={t('nav.about.staff')} data-reveal>
+            <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">
+              {t('staff.all')}
+            </button>
+            {usedGroups.map((g) => (
+              <button type="button" class="filter" data-filter={g.id} aria-pressed="false">
+                {t(g.key)}
+              </button>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        usedGroups.map((g) => (
+          <div class="group" data-group={g.id}>
+            <h2 class="group__title" data-reveal>{t(g.key)}</h2>
+            <ul class="people">
+              {withBios
+                .filter((p) => p.data.group === g.id)
+                .map(({ Bio, ...p }, i) => (
+                  <li class="person" data-reveal style={`--reveal-delay: ${(i % 4) * 70}ms`}>
+                    <button type="button" class="person__btn" data-open={`bio-${p.slug}`}>
+                      <div class="person__photo">
+                        <Media
+                          src={p.data.photo}
+                          alt={p.data.name}
+                          ratio="4 / 5"
+                          icon="user"
+                          tone={g.id === 'leadership' ? 'brand' : 'accent'}
+                          width={480}
+                          height={600}
+                        />
+                      </div>
+                      <span class="person__name">{p.data.name}</span>
+                      <span class="person__role">{p.data.role}</span>
+                    </button>
+                    <dialog class="bio" id={`bio-${p.slug}`} aria-labelledby={`bio-${p.slug}-name`}>
+                      <button type="button" class="bio__close" data-close aria-label={t('gallery.close')}>
+                        <Icon name="close" />
+                      </button>
+                      <div class="bio__photo">
+                        <Media src={p.data.photo} alt={p.data.name} ratio="4 / 5" icon="user" width={480} height={600} />
+                      </div>
+                      <div class="bio__body">
+                        <h3 id={`bio-${p.slug}-name`}>{p.data.name}</h3>
+                        <p class="bio__role">{p.data.role}</p>
+                        <div class="prose">
+                          <Bio />
+                        </div>
+                        {p.data.email && (
+                          <a class="link-arrow" href={`mailto:${p.data.email}`}>
+                            <Icon name="mail" />
+                            {p.data.email}
+                          </a>
+                        )}
+                      </div>
+                    </dialog>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Group filter
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const groups = document.querySelectorAll<HTMLElement>('[data-group]');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      groups.forEach((g) => {
+        const show = f === 'all' || g.dataset.group === f;
+        g.hidden = !show;
+        if (show) g.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+      });
+    }),
+  );
+
+  // Bio dialogs
+  document.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((btn) => {
+    const dialog = document.getElementById(btn.dataset.open!) as HTMLDialogElement | null;
+    if (!dialog) return;
+    btn.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('[data-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+  });
+</script>
+
+<style>
+  .intro {
+    max-width: 780px;
+    margin-bottom: 40px;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+  .filter {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-weight: 700;
+    font-size: 0.925rem;
+    color: var(--ink-2);
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .filter:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+  .filter.is-active {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+  }
+  .group + .group {
+    margin-top: 64px;
+  }
+  .group__title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+  .people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+    gap: 28px 20px;
+  }
+  .person__btn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+  }
+  .person__photo {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 14px;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .person__btn:hover .person__photo {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+  .person__btn:hover :global(img) {
+    transform: scale(1.04);
+  }
+  .person__name {
+    font-weight: 750;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+  .person__role {
+    color: var(--muted);
+    font-size: 0.925rem;
+    font-weight: 600;
+  }
+  .bio {
+    width: min(92vw, 820px);
+    max-height: 88vh;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  .bio[open] {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    animation: pop 0.35s var(--ease);
+  }
+  .bio::backdrop {
+    background: rgb(29 10 16 / 0.6);
+    backdrop-filter: blur(4px);
+  }
+  .bio__photo :global(.media) {
+    height: 100%;
+  }
+  .bio__body {
+    padding: 36px 32px;
+    overflow-y: auto;
+  }
+  .bio__body h3 {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+  .bio__role {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .bio__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  @media (max-width: 640px) {
+    .bio[open] {
+      grid-template-columns: 1fr;
+    }
+    .bio__photo {
+      max-height: 260px;
+      overflow: hidden;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+  }
+</style>

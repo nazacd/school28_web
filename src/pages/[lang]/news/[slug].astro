@@ -1,0 +1,59 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
+import Icon from '@/components/Icon.astro';
+import { defaultLocale, formatDate, locales, useTranslations, type Locale } from '@/i18n/ui';
+import { getLocalized } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export async function getStaticPaths() {
+  const slugs = (await getLocalized('news', defaultLocale)).map((e) => e.slug);
+  return locales.flatMap((lang) => slugs.map((slug) => ({ params: { lang, slug } })));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const entry = (await getLocalized('news', lang)).find((e) => e.slug === Astro.params.slug);
+if (!entry) throw new Error(`News entry not found: ${Astro.params.slug}`);
+const { Content } = await render(entry);
+const { title, description, date, cover } = entry.data;
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  ...(cover ? { image: new URL(cover, Astro.site).href } : {}),
+};
+---
+
+<BaseLayout lang={lang} title={title} description={description} image={cover} type="article" schema={[article]}>
+  <PageHero lang={lang} title={title} path={`news/${entry.slug}`} eyebrow={formatDate(date, lang)} />
+  <article class="container container--narrow article">
+    <div class="article__cover" data-reveal="scale">
+      <Media src={cover} alt={title} ratio="16 / 9" eager label={t('common.photoSoon')} />
+    </div>
+    <p class="lead" data-reveal>{description}</p>
+    <div class="prose" data-reveal><Content /></div>
+    <a class="link-arrow back" href={url(lang, 'news')}><Icon name="arrow-left" />{t('nav.news')}</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .article__cover {
+    margin-bottom: 36px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .back {
+    margin-top: 48px;
+  }
+  .back:hover :global(svg) {
+    transform: translateX(-4px);
+  }
+</style>

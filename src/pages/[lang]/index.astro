@@ -1,0 +1,603 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Icon from '@/components/Icon.astro';
+import NewsCard from '@/components/NewsCard.astro';
+import EventItem from '@/components/EventItem.astro';
+import { locales, useTranslations, type Locale } from '@/i18n/ui';
+import { byDateAsc, byDateDesc, getLocalized, getLocalizedEntry, getSettings, isUpcoming } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const settings = await getSettings();
+const home = await getLocalizedEntry('home', lang, 'index');
+if (!home) throw new Error('Missing src/content/home/uz/index.md');
+const h = home.data;
+const { Content: Welcome } = await render(home);
+
+const news = (await getLocalized('news', lang)).sort(byDateDesc).slice(0, 3);
+// Take a few extra; the browser hides events that finished after the last build.
+const events = (await getLocalized('events', lang)).filter((e) => isUpcoming(e)).sort(byDateAsc).slice(0, 6);
+const albums = (await getLocalized('gallery', lang)).sort(byDateDesc);
+const mosaic = albums.flatMap((a) => (a.data.images.length ? a.data.images : [])).slice(0, 5);
+
+const highlightIcons = ['book', 'heart', 'globe', 'star', 'shield', 'user'] as const;
+const link = (href: string) => (/^(https?:|mailto:|tel:|#)/.test(href) ? href : url(lang, href));
+---
+
+<BaseLayout lang={lang} title={h.title} description={h.description} image={h.hero_image}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <span class="blob blob--a"></span>
+      <span class="blob blob--b"></span>
+      <span class="grid-lines"></span>
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow" data-reveal>{settings.tagline[lang]}</p>
+        <h1 data-reveal style="--reveal-delay: 80ms">{h.hero_title}</h1>
+        <p class="lead" data-reveal style="--reveal-delay: 160ms">{h.hero_subtitle}</p>
+        <div class="hero__actions" data-reveal style="--reveal-delay: 240ms">
+          <a class="btn" href={link(h.hero_primary.link)}>{h.hero_primary.label}<Icon name="arrow" /></a>
+          {h.hero_secondary && <a class="btn btn--ghost" href={link(h.hero_secondary.link)}>{h.hero_secondary.label}</a>}
+        </div>
+      </div>
+      <div class="hero__visual" data-reveal="scale" style="--reveal-delay: 120ms">
+        <div class="hero__frame">
+          <Media src={h.hero_image} alt={h.hero_title} ratio="4 / 5" eager label={t('common.photoSoon')} />
+        </div>
+        {
+          h.stats[0] && (
+            <div class="hero__badge hero__badge--top">
+              <span class="hero__badge-icon"><Icon name="star" size={18} /></span>
+              <span><strong>{h.stats[0].value}</strong> {h.stats[0].label}</span>
+            </div>
+          )
+        }
+        {
+          h.stats[1] && (
+            <div class="hero__badge hero__badge--bottom">
+              <span class="hero__badge-icon hero__badge-icon--accent"><Icon name="user" size={18} /></span>
+              <span><strong>{h.stats[1].value}</strong> {h.stats[1].label}</span>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  {
+    h.stats.length > 0 && (
+      <section class="stats" aria-label="Key facts">
+        <div class="container">
+          <ul class="stats__list">
+            {h.stats.map((s, i) => (
+              <li class="stats__item" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+                <span class="stats__value">{s.value}</span>
+                <span class="stats__label">{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Highlights -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-reveal>{t('home.explore')}</p>
+          <h2 data-reveal>{h.highlights_title}</h2>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        {
+          h.highlights.map((item, i) => {
+            const Tag = item.link ? 'a' : 'div';
+            return (
+              <Tag
+                class="highlight"
+                href={item.link ? link(item.link) : undefined}
+                data-reveal
+                style={`--reveal-delay: ${(i % 3) * 80}ms`}
+              >
+                <span class:list={['highlight__icon', { 'highlight__icon--accent': i % 2 === 1 }]}>
+                  <Icon name={highlightIcons[i % highlightIcons.length]} size={24} />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                {item.link && <span class="link-arrow">{t('common.readMore')}<Icon name="arrow" /></span>}
+              </Tag>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Director's welcome -->
+  <section class="section section--tint">
+    <div class="container welcome">
+      <div class="welcome__image" data-reveal="scale">
+        <Media src={h.welcome_image} alt={h.welcome_author} ratio="4 / 5" icon="user" tone="accent" label={t('common.photoSoon')} />
+      </div>
+      <div class="welcome__copy">
+        <p class="eyebrow" data-reveal>{t('home.welcome')}</p>
+        <h2 data-reveal>{h.welcome_title}</h2>
+        <div class="welcome__text" data-reveal style="--reveal-delay: 80ms"><Welcome /></div>
+        <p class="welcome__author" data-reveal style="--reveal-delay: 140ms">
+          <strong>{h.welcome_author}</strong>
+          <span>{h.welcome_role}</span>
+        </p>
+        <a class="link-arrow" href={url(lang, 'about/directors-welcome')} data-reveal style="--reveal-delay: 180ms">
+          {t('common.readMore')}<Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- News -->
+  {
+    news.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 data-reveal>{t('home.news')}</h2>
+            <a class="link-arrow" href={url(lang, 'news')}>{t('common.viewAll')}<Icon name="arrow" /></a>
+          </div>
+          <div class="grid grid-3">
+            {news.map((n, i) => (
+              <NewsCard
+                lang={lang}
+                slug={n.slug}
+                title={n.data.title}
+                description={n.data.description}
+                date={n.data.date}
+                cover={n.data.cover}
+                delay={i * 80}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Events + gallery -->
+  <section class="section section--tint">
+    <div class="container split">
+      <div data-upcoming-section>
+        <div class="section-head">
+          <h2 data-reveal>{t('home.events')}</h2>
+          <a class="link-arrow" href={url(lang, 'events')}>{t('common.viewAll')}<Icon name="arrow" /></a>
+        </div>
+        <ul class="event-list" data-upcoming-list data-limit="3">
+          {
+            events.map((e, i) => (
+              <EventItem
+                lang={lang}
+                slug={e.slug}
+                title={e.data.title}
+                date={e.data.date}
+                endDate={e.data.end_date}
+                location={e.data.location}
+                delay={i * 80}
+              />
+            ))
+          }
+        </ul>
+        <p class="empty-note">{t('events.empty')}</p>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <h2 data-reveal>{t('home.gallery')}</h2>
+          <a class="link-arrow" href={url(lang, 'gallery')}>{t('common.viewAll')}<Icon name="arrow" /></a>
+        </div>
+        <a class="mosaic" href={url(lang, 'gallery')} aria-label={t('nav.gallery')} data-reveal="scale">
+          {
+            Array.from({ length: 5 }).map((_, i) => (
+              <div class={`mosaic__item mosaic__item--${i + 1}`}>
+                <Media
+                  src={mosaic[i]?.src}
+                  alt={mosaic[i]?.alt}
+                  ratio="auto"
+                  tone={i % 2 ? 'accent' : 'brand'}
+                  width={600}
+                  height={600}
+                />
+              </div>
+            ))
+          }
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="section cta-wrap">
+    <div class="container">
+      <div class="cta" data-reveal="scale">
+        <div class="cta__shape" aria-hidden="true"></div>
+        <div class="cta__copy">
+          <h2>{h.cta_title}</h2>
+          <p>{h.cta_text}</p>
+        </div>
+        <a class="btn btn--light" href={link(h.cta_link)}>{h.cta_label}<Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ----- Hero ----- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(32px, 6vw, 72px) 0 clamp(56px, 8vw, 104px);
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(10px);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .blob--a {
+    width: 560px;
+    height: 560px;
+    right: -140px;
+    top: -200px;
+    background: radial-gradient(circle, rgb(110 1 30 / 0.16), transparent 68%);
+  }
+  .blob--b {
+    width: 420px;
+    height: 420px;
+    left: -160px;
+    bottom: -180px;
+    background: radial-gradient(circle, rgb(1 110 106 / 0.16), transparent 68%);
+    animation-delay: -7s;
+  }
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 30% 40%, #000 0%, transparent 65%);
+    opacity: 0.55;
+  }
+  @keyframes drift {
+    to {
+      transform: translate(-40px, 30px) scale(1.08);
+    }
+  }
+  .hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    max-width: 14ch;
+  }
+  .hero .lead {
+    max-width: 52ch;
+    margin-bottom: 32px;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero__visual {
+    position: relative;
+    max-width: 460px;
+    justify-self: end;
+    width: 100%;
+  }
+  .hero__frame {
+    border-radius: 200px 200px var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 6px solid var(--surface);
+  }
+  .hero__badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    max-width: 240px;
+    animation: bob 6s ease-in-out infinite;
+  }
+  .hero__badge strong {
+    color: var(--ink);
+  }
+  .hero__badge--top {
+    top: 18%;
+    left: -40px;
+  }
+  .hero__badge--bottom {
+    bottom: 10%;
+    right: -24px;
+    animation-delay: -3s;
+  }
+  .hero__badge-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--brand-50);
+    color: var(--brand);
+  }
+  .hero__badge-icon--accent {
+    background: var(--accent-50);
+    color: var(--accent);
+  }
+  @keyframes bob {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+    .hero__visual {
+      justify-self: center;
+      max-width: 380px;
+    }
+    .hero__badge--top {
+      left: -8px;
+    }
+    .hero__badge--bottom {
+      right: -8px;
+    }
+  }
+
+  /* ----- Stats ----- */
+  .stats {
+    position: relative;
+    margin-top: -24px;
+  }
+  .stats__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    background: var(--brand);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  .stats__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 24px 28px;
+    color: #fff;
+  }
+  .stats__item + .stats__item {
+    border-left: 1px solid rgb(255 255 255 / 0.14);
+  }
+  .stats__value {
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .stats__label {
+    font-size: 0.925rem;
+    color: rgb(255 255 255 / 0.75);
+    font-weight: 600;
+  }
+  @media (max-width: 640px) {
+    .stats__list {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stats__item + .stats__item {
+      border-left: 0;
+    }
+  }
+
+  /* ----- Highlights ----- */
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 32px 28px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color 0.2s;
+  }
+  a.highlight:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: transparent;
+  }
+  .highlight h3 {
+    margin: 14px 0 4px;
+  }
+  .highlight p {
+    color: var(--ink-2);
+    flex: 1;
+  }
+  .highlight__icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--brand-50);
+    color: var(--brand);
+    transition: transform 0.5s var(--ease);
+  }
+  .highlight__icon--accent {
+    background: var(--accent-50);
+    color: var(--accent);
+  }
+  a.highlight:hover .highlight__icon {
+    transform: rotate(-8deg) scale(1.06);
+  }
+
+  /* ----- Welcome ----- */
+  .welcome {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(32px, 6vw, 88px);
+    align-items: center;
+  }
+  .welcome__image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .welcome__text {
+    font-size: 1.15rem;
+    color: var(--ink-2);
+  }
+  .welcome__text :global(p:first-child)::before {
+    content: '“';
+    display: block;
+    font-size: 4rem;
+    line-height: 0.6;
+    height: 28px;
+    color: var(--brand);
+    font-weight: 800;
+  }
+  .welcome__author {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0 20px;
+  }
+  .welcome__author span {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 800px) {
+    .welcome {
+      grid-template-columns: 1fr;
+    }
+    .welcome__image {
+      max-width: 340px;
+    }
+  }
+
+  /* ----- Events + gallery ----- */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 72px);
+  }
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+  .event-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .empty-note {
+    display: none;
+    color: var(--muted);
+  }
+  [data-upcoming-section].is-empty .empty-note {
+    display: block;
+  }
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 150px);
+    gap: 12px;
+  }
+  .mosaic__item {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .mosaic__item :global(.media) {
+    height: 100%;
+  }
+  .mosaic__item--1 {
+    grid-row: span 2;
+  }
+  .mosaic:hover .mosaic__item :global(img) {
+    transform: scale(1.05);
+  }
+  @media (max-width: 560px) {
+    .mosaic {
+      grid-template-rows: repeat(2, 110px);
+    }
+  }
+
+  /* ----- CTA ----- */
+  .cta-wrap {
+    padding-top: 0;
+    background: linear-gradient(180deg, var(--surface-2) 0 50%, var(--bg) 50% 100%);
+  }
+  .cta {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: clamp(36px, 6vw, 64px);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(120deg, var(--brand) 0%, #4d0115 60%, var(--accent) 160%);
+    color: #fff;
+  }
+  .cta h2 {
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .cta p {
+    color: rgb(255 255 255 / 0.8);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .cta__copy,
+  .cta .btn {
+    position: relative;
+  }
+  .cta__shape {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    right: -100px;
+    top: -140px;
+    border-radius: 50%;
+    border: 60px solid rgb(255 255 255 / 0.06);
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+</style>

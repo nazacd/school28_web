@@ -1,0 +1,30 @@
+---
+import Media from './Media.astro';
+import { formatDate, useTranslations, type Locale } from '@/i18n/ui';
+import { url } from '@/lib/routes';
+
+interface Props {
+  lang: Locale;
+  slug: string;
+  title: string;
+  description: string;
+  date: Date;
+  cover?: string;
+  delay?: number;
+}
+const { lang, slug, title, description, date, cover, delay = 0 } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<article class="card" data-reveal style={`--reveal-delay: ${delay}ms`}>
+  <div class="card__media">
+    <Media src={cover} alt={title} label={t('common.photoSoon')} ratio="16 / 10" />
+  </div>
+  <div class="card__body">
+    <time class="card__meta" datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+    <h3 class="card__title">
+      <a class="card__link" href={url(lang, `news/${slug}`)}>{title}</a>
+    </h3>
+    <p class="card__text">{description}</p>
+  </div>
+</article>

@@ -1,0 +1,133 @@
+---
+import Icon from './Icon.astro';
+import { formatDate, type Locale } from '@/i18n/ui';
+import { url } from '@/lib/routes';
+
+interface Props {
+  lang: Locale;
+  slug: string;
+  title: string;
+  description?: string;
+  date: Date;
+  endDate?: Date | null;
+  location: string;
+  delay?: number;
+}
+const { lang, slug, title, description, date, endDate, location, delay = 0 } = Astro.props;
+const end = endDate ?? date;
+const day = formatDate(date, lang, { day: '2-digit' });
+const month = formatDate(date, lang, { month: 'short' }).replace('.', '');
+const range =
+  endDate && endDate.toDateString() !== date.toDateString()
+    ? `${formatDate(date, lang)} – ${formatDate(endDate, lang)}`
+    : formatDate(date, lang, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const isoDay = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<li class="event" data-event-end={isoDay(end)} data-reveal style={`--reveal-delay: ${delay}ms`}>
+  <div class="event__date" aria-hidden="true">
+    <span class="event__day">{day}</span>
+    <span class="event__month">{month}</span>
+  </div>
+  <div class="event__body">
+    <h3 class="event__title"><a href={url(lang, `events/${slug}`)}>{title}</a></h3>
+    <p class="event__meta">
+      <span><Icon name="calendar" size={16} /><time datetime={date.toISOString()}>{range}</time></span>
+      <span><Icon name="pin" size={16} />{location}</span>
+    </p>
+    {description && <p class="event__text">{description}</p>}
+  </div>
+  <Icon name="arrow" size={20} class="event__arrow" />
+</li>
+
+<style>
+  .event {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color 0.2s;
+  }
+  .event:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow);
+    border-color: transparent;
+  }
+  .event__date {
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 72px;
+    border-radius: 14px;
+    background: var(--accent-50);
+    color: var(--accent);
+    line-height: 1;
+  }
+  .event__day {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .event__month {
+    font-size: 0.75rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: -14px;
+  }
+  .event__title {
+    font-size: 1.1rem;
+    margin: 0 0 6px;
+  }
+  .event__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .event__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .event__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .event__text {
+    margin: 8px 0 0;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+  }
+  .event :global(.event__arrow) {
+    color: var(--muted);
+    transition: transform var(--dur) var(--ease), color 0.2s;
+  }
+  .event:hover :global(.event__arrow) {
+    color: var(--brand);
+    transform: translateX(4px);
+  }
+  @media (max-width: 560px) {
+    .event {
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .event :global(.event__arrow) {
+      display: none;
+    }
+    .event__date {
+      width: 56px;
+      height: 62px;
+    }
+  }
+</style>

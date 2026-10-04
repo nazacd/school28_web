@@ -164,10 +164,18 @@ school28_web/
 
 ---
 
-## 9. Open questions
+## 9. Decisions (answered)
 
-1. Which languages: Uzbek / Russian / English? This affects routing from day one.
-2. Brand assets: is there a logo, colours or photos?
-3. Domain name and preferred hosting?
-4. Should non-technical staff edit content through a web UI (CMS), or will developers edit Markdown?
-5. Are a contact form, news/events or a gallery needed later? These shape the navigation now.
+| Question | Decision | Where it is implemented |
+|---|---|---|
+| Languages | Uzbek (default), Russian, English | `/uz/`, `/ru/`, `/en/` routes; `src/i18n/ui.ts`; content in `src/content/<collection>/<lang>/` |
+| Brand assets | Logo and photos left blank for now; colors `#6e011e` (primary) and `#016e6a` (secondary) | "28" badge until a logo is uploaded; branded placeholders for every empty image; tokens in `src/styles/global.css` |
+| Hosting | Own VPS with Docker | `Dockerfile`, `docker-compose.yml`, `.env.example` (deployment details to be discussed) |
+| Editing | Simple web editor | Decap CMS at `/admin`, GitHub login served by the site itself |
+| Extra pages | Admissions, Academics, News, Events, Gallery, Contact (with form) | All built; the contact form sends email over SMTP |
+
+### Changes from the original plan
+- **Plain CSS instead of Tailwind:** a small token-based stylesheet, so there is no extra build dependency.
+- **No React runtime:** the interactive parts (menu, lightbox, filters, form) are a few lines of inline script each, so visitors download no framework. React components can still be added later with `@astrojs/react` if needed.
+- **Server for a few routes:** the site is still pre-rendered HTML. Only the contact form API, the editor login and the language redirect on `/` run on a small Node server, which is why it ships as a Docker image instead of static hosting.
+- **Images:** uploads from the editor are served from `public/uploads` with `loading="lazy"` and fixed dimensions. They are not resized automatically, so upload photos at a sensible size.

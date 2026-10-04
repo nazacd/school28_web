@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/Icon.astro';
+import { defaultLocale, isLocale, locales, ui } from '@/i18n/ui';
+
+// One 404 page for all languages; the language is guessed from the URL.
+const first = Astro.url.pathname.split('/')[1];
+const lang = isLocale(first) ? first : defaultLocale;
+const t = ui[lang];
+---
+
+<BaseLayout lang={lang} title={t['404.title']} description={t['404.text']} noindex>
+  <section class="section">
+    <div class="container container--narrow nf">
+      <p class="nf__code" aria-hidden="true">404</p>
+      <h1>{t['404.title']}</h1>
+      <p class="lead">{t['404.text']}</p>
+      <div class="nf__links">
+        {
+          locales.map((l) => (
+            <a class={l === lang ? 'btn' : 'btn btn--ghost'} href={`/${l}/`} lang={l}>
+              {ui[l]['404.home']}
+              {l === lang && <Icon name="arrow" />}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    text-align: center;
+  }
+  .nf__code {
+    font-size: clamp(6rem, 18vw, 11rem);
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    margin: 0 0 12px;
+    background: linear-gradient(120deg, var(--brand), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .nf__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+</style>

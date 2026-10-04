@@ -1,0 +1,102 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
+import Icon from '@/components/Icon.astro';
+import { defaultLocale, formatDate, locales, useTranslations, type Locale } from '@/i18n/ui';
+import { getLocalized } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export async function getStaticPaths() {
+  const slugs = (await getLocalized('events', defaultLocale)).map((e) => e.slug);
+  return locales.flatMap((lang) => slugs.map((slug) => ({ params: { lang, slug } })));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const entry = (await getLocalized('events', lang)).find((e) => e.slug === Astro.params.slug);
+if (!entry) throw new Error(`Event not found: ${Astro.params.slug}`);
+const { Content } = await render(entry);
+const { title, description, date, end_date, location, cover } = entry.data;
+const when =
+  end_date && end_date.toDateString() !== date.toDateString()
+    ? `${formatDate(date, lang)} – ${formatDate(end_date, lang)}`
+    : formatDate(date, lang, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const eventSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: title,
+  description,
+  startDate: date.toISOString().slice(0, 10),
+  ...(end_date ? { endDate: end_date.toISOString().slice(0, 10) } : {}),
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: { '@type': 'Place', name: location },
+  ...(cover ? { image: new URL(cover, Astro.site).href } : {}),
+};
+---
+
+<BaseLayout lang={lang} title={title} description={description} image={cover} schema={[eventSchema]}>
+  <PageHero lang={lang} title={title} lead={description} path={`events/${entry.slug}`} />
+  <article class="container container--narrow article">
+    <dl class="facts" data-reveal>
+      <div>
+        <dt><Icon name="calendar" size={18} />{t('events.when')}</dt>
+        <dd>{when}</dd>
+      </div>
+      <div>
+        <dt><Icon name="pin" size={18} />{t('events.location')}</dt>
+        <dd>{location}</dd>
+      </div>
+    </dl>
+    {
+      cover && (
+        <div class="article__cover" data-reveal="scale">
+          <Media src={cover} alt={title} ratio="16 / 9" eager />
+        </div>
+      )
+    }
+    <div class="prose" data-reveal><Content /></div>
+    <a class="link-arrow back" href={url(lang, 'events')}><Icon name="arrow-left" />{t('nav.events')}</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 0 0 36px;
+  }
+  .facts div {
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: var(--accent-50);
+  }
+  .facts dt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .facts dd {
+    margin: 6px 0 0;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .article__cover {
+    margin-bottom: 36px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .back {
+    margin-top: 48px;
+  }
+</style>

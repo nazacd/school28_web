@@ -1,0 +1,9 @@
+/* Light styling for the live preview pane of the content editor. */
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1c1a1b; line-height: 1.65; padding: 24px; max-width: 780px; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+h1 { color: #6e011e; }
+a { color: #6e011e; }
+blockquote { margin: 0; padding: 16px 20px; border-left: 4px solid #6e011e; background: #fbf1f3; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border-bottom: 1px solid #e9e4e2; padding: 8px 10px; text-align: left; }
+img { max-width: 100%; border-radius: 12px; }

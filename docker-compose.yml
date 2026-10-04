@@ -1,0 +1,32 @@
+# Usage on the server:
+#   cp .env.example .env   # then edit the values
+#   docker compose up -d --build
+#
+# The site listens on 127.0.0.1:4321. Put a reverse proxy (Nginx, Caddy, Traefik)
+# in front of it for HTTPS and your domain — see README.md → "Deployment".
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        SITE_URL: ${SITE_URL:-http://localhost:4321}
+    image: school28-web:latest
+    container_name: school28-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321
+    ports:
+      - "127.0.0.1:${WEB_PORT:-4321}:4321"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import EventItem from '@/components/EventItem.astro';
+import { locales, useTranslations, type Locale } from '@/i18n/ui';
+import { byDateAsc, byDateDesc, getLocalized, isUpcoming } from '@/lib/content';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const all = await getLocalized('events', lang);
+const upcoming = all.filter((e) => isUpcoming(e)).sort(byDateAsc);
+const past = all.filter((e) => !isUpcoming(e)).sort(byDateDesc);
+---
+
+<BaseLayout lang={lang} title={t('events.title')} description={t('events.description')}>
+  <PageHero lang={lang} title={t('events.title')} lead={t('events.description')} path="events" />
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div data-upcoming-section>
+        <h2 class="list-title" data-reveal>{t('events.upcoming')}</h2>
+        <ul class="event-list" data-upcoming-list data-past-target="#past-events">
+          {
+            upcoming.map((e, i) => (
+              <EventItem
+                lang={lang}
+                slug={e.slug}
+                title={e.data.title}
+                description={e.data.description}
+                date={e.data.date}
+                endDate={e.data.end_date}
+                location={e.data.location}
+                delay={Math.min(i, 4) * 70}
+              />
+            ))
+          }
+        </ul>
+        <p class="empty-note">{t('events.empty')}</p>
+      </div>
+
+      <div class="past" data-past-section hidden={past.length === 0}>
+        <h2 class="list-title" data-reveal>{t('events.past')}</h2>
+        <ul class="event-list event-list--past" id="past-events">
+          {
+            past.map((e) => (
+              <EventItem
+                lang={lang}
+                slug={e.slug}
+                title={e.data.title}
+                date={e.data.date}
+                endDate={e.data.end_date}
+                location={e.data.location}
+              />
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .event-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .event-list--past {
+    opacity: 0.75;
+  }
+  .past {
+    margin-top: 64px;
+  }
+  .empty-note {
+    display: none;
+    color: var(--muted);
+  }
+  [data-upcoming-section].is-empty .empty-note {
+    display: block;
+  }
+</style>

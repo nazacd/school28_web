@@ -1,0 +1,125 @@
+---
+import Icon from './Icon.astro';
+import { parentOf, url } from '@/lib/routes';
+import { useTranslations, type Locale } from '@/i18n/ui';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  lead?: string;
+  /** path after /<lang>/, used for breadcrumbs */
+  path: string;
+  eyebrow?: string;
+}
+const { lang, title, lead, path, eyebrow } = Astro.props;
+const t = useTranslations(lang);
+const parent = parentOf(path);
+const crumbs = [
+  { label: t('nav.home'), href: url(lang) },
+  ...(parent && parent.path !== path ? [{ label: t(parent.key), href: url(lang, parent.path) }] : []),
+];
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [...crumbs, { label: title, href: url(lang, path) }].map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    item: new URL(c.href, Astro.site ?? Astro.url.origin).href,
+  })),
+};
+---
+
+<section class="page-hero">
+  <div class="page-hero__shape page-hero__shape--a" aria-hidden="true"></div>
+  <div class="page-hero__shape page-hero__shape--b" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <nav class="crumbs" aria-label={t('common.breadcrumbs')} data-reveal="fade">
+      <ol>
+        {
+          crumbs.map((c) => (
+            <li>
+              <a href={c.href}>{c.label}</a>
+              <Icon name="chevron" size={14} />
+            </li>
+          ))
+        }
+        <li aria-current="page">{title}</li>
+      </ol>
+    </nav>
+    {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
+    <h1 data-reveal style="--reveal-delay: 60ms">{title}</h1>
+    {lead && <p class="lead page-hero__lead" data-reveal style="--reveal-delay: 120ms">{lead}</p>}
+  </div>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(40px, 7vw, 88px) 0 clamp(40px, 6vw, 72px);
+    background: linear-gradient(180deg, var(--brand-50) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero__inner {
+    position: relative;
+  }
+  .page-hero h1 {
+    max-width: 18ch;
+    margin-bottom: 0.35em;
+  }
+  .page-hero__lead {
+    max-width: 62ch;
+    margin: 0;
+  }
+  .page-hero__shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 14s ease-in-out infinite alternate;
+  }
+  .page-hero__shape--a {
+    width: 420px;
+    height: 420px;
+    right: -120px;
+    top: -180px;
+    background: radial-gradient(circle, rgb(110 1 30 / 0.12), transparent 70%);
+  }
+  .page-hero__shape--b {
+    width: 300px;
+    height: 300px;
+    right: 18%;
+    bottom: -200px;
+    background: radial-gradient(circle, rgb(1 110 106 / 0.14), transparent 70%);
+    animation-delay: -6s;
+  }
+  @keyframes float {
+    to {
+      transform: translate(-30px, 20px) scale(1.06);
+    }
+  }
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .crumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .crumbs a:hover {
+    color: var(--brand);
+  }
+  .crumbs [aria-current] {
+    color: var(--ink-2);
+  }
+</style>

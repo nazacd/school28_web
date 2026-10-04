@@ -1,0 +1,255 @@
+# Decap CMS configuration — the web editor at /admin
+# Docs: https://decapcms.org/docs/configuration-options/
+#
+# Editors sign in with GitHub. Every "Publish" saves a commit to the repository;
+# the site is then rebuilt and redeployed (see README → "Content editor").
+
+backend:
+  name: github
+  repo: nazacd/school28_web
+  branch: main
+  # base_url and auth_endpoint are set in admin/index.html (this same server handles the login)
+
+# For local editing without GitHub: run `npm run cms` next to `npm run dev`
+# and open http://localhost:4321/admin/
+local_backend: true
+
+publish_mode: simple
+site_url: /
+display_url: /
+logo_url: /favicon.svg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+# Content is stored as <collection>/<lang>/<slug>.md
+i18n:
+  structure: multiple_folders
+  locales: [uz, ru, en]
+  default_locale: uz
+
+collections:
+  # ---------------------------------------------------------------- Home page
+  - name: home
+    label: Home page
+    label_singular: Home page
+    folder: src/content/home
+    create: false
+    delete: false
+    i18n: true
+    identifier_field: title
+    summary: Home page
+    fields:
+      - { name: title, label: Browser tab title, widget: string, i18n: true }
+      - { name: description, label: Search engine description, widget: text, i18n: true }
+      - { name: hero_title, label: Hero title, widget: string, i18n: true }
+      - { name: hero_subtitle, label: Hero text, widget: text, i18n: true }
+      - { name: hero_image, label: Hero image, widget: image, required: false, i18n: duplicate }
+      - name: hero_primary
+        label: Main button
+        widget: object
+        i18n: true
+        fields:
+          - { name: label, label: Text, widget: string, i18n: true }
+          - { name: link, label: 'Link (e.g. admissions, contact, about)', widget: string, i18n: duplicate }
+      - name: hero_secondary
+        label: Second button
+        widget: object
+        required: false
+        i18n: true
+        fields:
+          - { name: label, label: Text, widget: string, i18n: true }
+          - { name: link, label: Link, widget: string, i18n: duplicate }
+      - name: stats
+        label: Key numbers
+        widget: list
+        i18n: true
+        fields:
+          - { name: value, label: Number, widget: string }
+          - { name: label, label: Label, widget: string }
+      - { name: highlights_title, label: Highlights heading, widget: string, i18n: true }
+      - name: highlights
+        label: Highlights
+        widget: list
+        i18n: true
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: text, label: Text, widget: text }
+          - { name: link, label: Link, widget: string, required: false }
+      - { name: welcome_title, label: Welcome heading, widget: string, i18n: true }
+      - { name: body, label: Welcome text, widget: markdown, i18n: true }
+      - { name: welcome_author, label: Welcome — name, widget: string, i18n: true }
+      - { name: welcome_role, label: Welcome — position, widget: string, i18n: true }
+      - { name: welcome_image, label: Welcome — photo, widget: image, required: false, i18n: duplicate }
+      - { name: cta_title, label: Bottom banner — title, widget: string, i18n: true }
+      - { name: cta_text, label: Bottom banner — text, widget: text, i18n: true }
+      - { name: cta_label, label: Bottom banner — button text, widget: string, i18n: true }
+      - { name: cta_link, label: Bottom banner — button link, widget: string, i18n: duplicate }
+
+  # ---------------------------------------------------------------- Pages
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    create: false
+    delete: false
+    i18n: true
+    identifier_field: title
+    summary: '{{title}}'
+    sortable_fields: [title]
+    fields:
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: description, label: Short description (shown under the title and in search results), widget: text, i18n: true }
+      - { name: hero_image, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: updated, label: Last updated, required: false, widget: datetime, format: YYYY-MM-DD, date_format: DD.MM.YYYY, time_format: false, picker_utc: true, i18n: duplicate }
+      - { name: body, label: Content, widget: markdown, i18n: true }
+
+  # ---------------------------------------------------------------- News
+  - name: news
+    label: News
+    label_singular: News article
+    folder: src/content/news
+    create: true
+    i18n: true
+    slug: '{{year}}-{{month}}-{{slug}}'
+    summary: '{{date}} — {{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: description, label: Short summary, widget: text, i18n: true }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: DD.MM.YYYY, time_format: false, picker_utc: true, i18n: duplicate }
+      - { name: cover, label: Cover image, widget: image, required: false, i18n: duplicate }
+      - { name: draft, label: Draft (hidden from the site), widget: boolean, default: false, i18n: duplicate }
+      - { name: body, label: Text, widget: markdown, i18n: true }
+
+  # ---------------------------------------------------------------- Events
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: src/content/events
+    create: true
+    i18n: true
+    slug: '{{year}}-{{month}}-{{slug}}'
+    summary: '{{date}} — {{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: description, label: Short summary, widget: text, i18n: true }
+      - { name: date, label: Start date, widget: datetime, format: YYYY-MM-DD, date_format: DD.MM.YYYY, time_format: false, picker_utc: true, i18n: duplicate }
+      - { name: end_date, label: End date, required: false, widget: datetime, format: YYYY-MM-DD, date_format: DD.MM.YYYY, time_format: false, picker_utc: true, i18n: duplicate }
+      - { name: location, label: Location, widget: string, i18n: true }
+      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: draft, label: Draft (hidden from the site), widget: boolean, default: false, i18n: duplicate }
+      - { name: body, label: Details, widget: markdown, i18n: true }
+
+  # ---------------------------------------------------------------- Staff
+  - name: staff
+    label: Staff
+    label_singular: Staff member
+    folder: src/content/staff
+    create: true
+    i18n: true
+    identifier_field: name
+    slug: '{{fields.name}}'
+    summary: '{{name}} — {{role}}'
+    sortable_fields: [order, name]
+    fields:
+      - { name: name, label: Full name, widget: string, i18n: true }
+      - { name: role, label: Position, widget: string, i18n: true }
+      - name: group
+        label: Group
+        widget: select
+        i18n: duplicate
+        options:
+          - { label: Leadership, value: leadership }
+          - { label: Teachers, value: teachers }
+          - { label: Support staff, value: support }
+      - { name: order, label: Order (smaller numbers first), widget: number, value_type: int, default: 100, i18n: duplicate }
+      - { name: photo, label: Photo, widget: image, required: false, i18n: duplicate }
+      - { name: email, label: Email, widget: string, required: false, i18n: duplicate }
+      - { name: body, label: Short biography, widget: markdown, required: false, i18n: true }
+
+  # ---------------------------------------------------------------- Gallery
+  - name: gallery
+    label: Gallery
+    label_singular: Album
+    folder: src/content/gallery
+    create: true
+    i18n: true
+    slug: '{{year}}-{{slug}}'
+    summary: '{{date}} — {{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Album title, widget: string, i18n: true }
+      - { name: description, label: Short description, widget: text, required: false, i18n: true }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: DD.MM.YYYY, time_format: false, picker_utc: true, i18n: duplicate }
+      - { name: cover, label: Cover image (the first photo is used if empty), widget: image, required: false, i18n: duplicate }
+      # Photos are added once (in the default language) and shown in every language.
+      - name: images
+        label: Photos
+        widget: list
+        required: false
+        fields:
+          - { name: src, label: Photo, widget: image }
+          - { name: alt, label: Short description of the photo, widget: string, required: false }
+      - { name: placeholder_count, label: Placeholders shown while there are no photos, widget: hidden, default: 6, i18n: duplicate }
+      - { name: body, label: Text, widget: markdown, required: false, i18n: true }
+
+  # ---------------------------------------------------------------- Settings
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: School details
+        file: src/content/settings/site.json
+        format: json
+        fields:
+          - name: name
+            label: School name
+            widget: object
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - { name: short_name, label: 'Logo text (shown until a logo is uploaded, e.g. "28")', widget: string }
+          - name: tagline
+            label: Tagline
+            widget: object
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - { name: logo, label: Logo (square image), widget: image, required: false }
+          - { name: og_image, label: Social sharing image (1200×630), widget: image, required: false }
+          - name: address
+            label: Address
+            widget: object
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - name: hours
+            label: Opening hours
+            widget: object
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - { name: phone, label: Phone, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: map_link, label: Map link (Google / Yandex Maps), widget: string, required: false }
+          - { name: map_embed, label: Map embed URL (iframe src), widget: string, required: false }
+          - { name: founded, label: Year founded, widget: string, required: false }
+          - name: socials
+            label: Social networks
+            widget: object
+            fields:
+              - { name: telegram, label: Telegram, widget: string, required: false }
+              - { name: instagram, label: Instagram, widget: string, required: false }
+              - { name: facebook, label: Facebook, widget: string, required: false }
+              - { name: youtube, label: YouTube, widget: string, required: false }

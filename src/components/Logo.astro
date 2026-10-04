@@ -1,0 +1,89 @@
+---
+// Shows the logo image from site settings, or a "28" monogram until a logo is uploaded.
+interface Props {
+  name: string;
+  tagline?: string;
+  logo?: string;
+  monogram: string;
+  href: string;
+  inverted?: boolean;
+}
+const { name, tagline, logo, monogram, href, inverted = false } = Astro.props;
+---
+
+<a href={href} class:list={['logo', { 'logo--inverted': inverted }]} aria-label={name}>
+  {
+    logo ? (
+      <img src={logo} alt="" width="44" height="44" class="logo__img" />
+    ) : (
+      <span class="logo__mark" aria-hidden="true">
+        {monogram}
+      </span>
+    )
+  }
+  <span class="logo__text">
+    <span class="logo__name">{name}</span>
+    {tagline && <span class="logo__tagline">{tagline}</span>}
+  </span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .logo__img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+  .logo__mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-600) 55%, var(--accent) 140%);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.03em;
+    box-shadow: 0 6px 16px -6px rgb(110 1 30 / 0.5);
+    transition: transform 0.5s var(--ease);
+  }
+  .logo:hover .logo__mark {
+    transform: rotate(-6deg) scale(1.04);
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    min-width: 0;
+  }
+  .logo__name {
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .logo__tagline {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .logo--inverted .logo__mark {
+    background: #fff;
+    color: var(--brand);
+  }
+  .logo--inverted .logo__tagline {
+    color: rgb(255 255 255 / 0.7);
+  }
+</style>

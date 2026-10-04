@@ -1,0 +1,188 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { footerLinks, policyLinks, url } from '@/lib/routes';
+import { useTranslations, type Locale } from '@/i18n/ui';
+import { getSettings } from '@/lib/content';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const s = await getSettings();
+const socials = (['telegram', 'instagram', 'facebook', 'youtube'] as const).filter((k) => s.socials[k]);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Logo href={url(lang)} name={s.name[lang]} tagline={s.tagline[lang]} logo={s.logo} monogram={s.short_name} inverted />
+      <ul class="footer__contacts">
+        <li><Icon name="pin" size={18} /><span>{s.address[lang]}</span></li>
+        <li><Icon name="phone" size={18} /><a href={`tel:${s.phone.replace(/[^+\d]/g, '')}`}>{s.phone}</a></li>
+        <li><Icon name="mail" size={18} /><a href={`mailto:${s.email}`}>{s.email}</a></li>
+        <li><Icon name="clock" size={18} /><span>{s.hours[lang]}</span></li>
+      </ul>
+    </div>
+
+    <nav aria-label={t('footer.quickLinks')}>
+      <h2 class="footer__title">{t('footer.quickLinks')}</h2>
+      <ul class="footer__links">
+        {footerLinks.map((l) => <li><a href={url(lang, l.path)}>{t(l.key)}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label={t('footer.policies')}>
+      <h2 class="footer__title">{t('footer.policies')}</h2>
+      <ul class="footer__links">
+        {policyLinks.map((l) => <li><a href={url(lang, l.path)}>{t(l.key)}</a></li>)}
+        <li><a href={url(lang, 'contact')}>{t('nav.contact')}</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer__title">{t('footer.follow')}</h2>
+      {
+        socials.length > 0 ? (
+          <ul class="footer__social">
+            {socials.map((k) => (
+              <li>
+                <a href={s.socials[k]} target="_blank" rel="noopener noreferrer" aria-label={k}>
+                  <Icon name={k} size={20} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="footer__muted">—</p>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {year} {s.name[lang]}. {t('footer.rights')}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    margin-top: auto;
+    background: #1d0a10;
+    color: rgb(255 255 255 / 0.78);
+    padding-top: clamp(56px, 8vw, 88px);
+    overflow: hidden;
+  }
+  .footer::before {
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -160px;
+    top: -260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(1 110 106 / 0.35), transparent 65%);
+    pointer-events: none;
+  }
+  .footer :global(.logo) {
+    color: #fff;
+  }
+  .footer__grid {
+    position: relative;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  }
+  @media (max-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 520px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .footer__contacts {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: grid;
+    gap: 12px;
+    font-size: 0.95rem;
+  }
+  .footer__contacts li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .footer__contacts :global(svg) {
+    flex: none;
+    margin-top: 3px;
+    color: #6fd3cd;
+  }
+  .footer__contacts a:hover,
+  .footer__links a:hover {
+    color: #fff;
+  }
+  .footer__title {
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+    font-size: 0.95rem;
+  }
+  .footer__links a {
+    transition: color 0.2s;
+  }
+  .footer__social {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+    transition: background-color 0.25s, transform 0.35s var(--ease);
+  }
+  .footer__social a:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+  }
+  .footer__muted {
+    color: rgb(255 255 255 / 0.4);
+  }
+  .footer__bottom {
+    position: relative;
+    margin-top: 56px;
+    padding-block: 24px;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.55);
+  }
+  .footer__bottom p {
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
+import Icon from '@/components/Icon.astro';
+import { defaultLocale, formatDate, locales, useTranslations, type Locale } from '@/i18n/ui';
+import { getLocalized } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export async function getStaticPaths() {
+  const slugs = (await getLocalized('gallery', defaultLocale)).map((e) => e.slug);
+  return locales.flatMap((lang) => slugs.map((slug) => ({ params: { lang, slug } })));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const album = (await getLocalized('gallery', lang)).find((e) => e.slug === Astro.params.slug);
+if (!album) throw new Error(`Album not found: ${Astro.params.slug}`);
+const { Content } = await render(album);
+const { title, description, date, images, placeholder_count } = album.data;
+---
+
+<BaseLayout lang={lang} title={title} description={description || t('gallery.description')} image={album.data.cover ?? images[0]?.src}>
+  <PageHero lang={lang} title={title} lead={description} path={`gallery/${album.slug}`} eyebrow={formatDate(date, lang)} />
+
+  <section class="section">
+    <div class="container">
+      <div class="prose intro"><Content /></div>
+
+      <ul class="photos">
+        {
+          images.length
+            ? images.map((img, i) => (
+                <li data-reveal="scale" style={`--reveal-delay: ${(i % 4) * 60}ms`}>
+                  <button type="button" class="photo" data-index={i} data-src={img.src} data-alt={img.alt}>
+                    <Media src={img.src} alt={img.alt} ratio="1 / 1" width={600} height={600} />
+                  </button>
+                </li>
+              ))
+            : Array.from({ length: placeholder_count }).map((_, i) => (
+                <li data-reveal="scale" style={`--reveal-delay: ${(i % 4) * 60}ms`}>
+                  <Media ratio="1 / 1" tone={i % 3 === 1 ? 'accent' : i % 3 === 2 ? 'neutral' : 'brand'} label={t('common.photoSoon')} />
+                </li>
+              ))
+        }
+      </ul>
+
+      <a class="link-arrow back" href={url(lang, 'gallery')}><Icon name="arrow-left" />{t('nav.gallery')}</a>
+    </div>
+  </section>
+
+  <dialog class="lightbox" data-lightbox aria-label={title}>
+    <img alt="" data-lightbox-img />
+    <button type="button" class="lightbox__btn lightbox__close" data-lightbox-close aria-label={t('gallery.close')}><Icon name="close" /></button>
+    <button type="button" class="lightbox__btn lightbox__prev" data-lightbox-prev aria-label={t('gallery.prev')}><Icon name="arrow-left" /></button>
+    <button type="button" class="lightbox__btn lightbox__next" data-lightbox-next aria-label={t('gallery.next')}><Icon name="arrow" /></button>
+  </dialog>
+</BaseLayout>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const img = document.querySelector<HTMLImageElement>('[data-lightbox-img]');
+  const photos = [...document.querySelectorAll<HTMLButtonElement>('.photo')];
+  let index = 0;
+
+  const show = (i: number) => {
+    if (!img || !photos.length) return;
+    index = (i + photos.length) % photos.length;
+    img.src = photos[index].dataset.src!;
+    img.alt = photos[index].dataset.alt || '';
+  };
+
+  if (dialog && img) {
+    photos.forEach((p, i) =>
+      p.addEventListener('click', () => {
+        show(i);
+        dialog.showModal();
+      }),
+    );
+    dialog.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => show(index - 1));
+    dialog.querySelector('[data-lightbox-next]')?.addEventListener('click', () => show(index + 1));
+    dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+  }
+</script>
+
+<style>
+  .intro {
+    max-width: 780px;
+    margin-bottom: 32px;
+  }
+  .intro:empty {
+    display: none;
+  }
+  .photos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 12px;
+  }
+  .photos li {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .photo {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  .photo:hover :global(img) {
+    transform: scale(1.05);
+  }
+  .back {
+    margin-top: 48px;
+  }
+  .lightbox {
+    max-width: min(96vw, 1200px);
+    max-height: 92vh;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: #111;
+    overflow: visible;
+  }
+  .lightbox[open] {
+    animation: zoom-in 0.35s var(--ease);
+  }
+  .lightbox::backdrop {
+    background: rgb(15 6 9 / 0.85);
+    backdrop-filter: blur(4px);
+  }
+  .lightbox img {
+    display: block;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius);
+  }
+  .lightbox__btn {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--ink);
+    transition: transform 0.25s var(--ease);
+  }
+  .lightbox__btn:hover {
+    transform: scale(1.08);
+  }
+  .lightbox__close {
+    top: 12px;
+    right: 12px;
+  }
+  .lightbox__prev,
+  .lightbox__next {
+    top: 50%;
+    margin-top: -23px;
+  }
+  .lightbox__prev {
+    left: 12px;
+  }
+  .lightbox__next {
+    right: 12px;
+  }
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+</style>

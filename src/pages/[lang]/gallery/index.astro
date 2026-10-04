@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
+import { formatDate, locales, useTranslations, type Locale } from '@/i18n/ui';
+import { byDateDesc, getLocalized } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const albums = (await getLocalized('gallery', lang)).sort(byDateDesc);
+---
+
+<BaseLayout lang={lang} title={t('gallery.title')} description={t('gallery.description')}>
+  <PageHero lang={lang} title={t('gallery.title')} lead={t('gallery.description')} path="gallery" />
+  <section class="section">
+    <div class="container grid grid-3">
+      {
+        albums.map((a, i) => {
+          const count = a.data.images.length;
+          return (
+            <article class="card album" data-reveal style={`--reveal-delay: ${(i % 3) * 80}ms`}>
+              <div class="card__media album__media">
+                <Media
+                  src={a.data.cover ?? a.data.images[0]?.src}
+                  alt={a.data.title}
+                  ratio="4 / 3"
+                  tone={i % 2 ? 'accent' : 'brand'}
+                  label={t('common.photoSoon')}
+                />
+                {count > 0 && <span class="album__count">{count} {t('gallery.photos')}</span>}
+              </div>
+              <div class="card__body">
+                <time class="card__meta" datetime={a.data.date.toISOString()}>{formatDate(a.data.date, lang)}</time>
+                <h2 class="card__title">
+                  <a class="card__link" href={url(lang, `gallery/${a.slug}`)}>{a.data.title}</a>
+                </h2>
+                {a.data.description && <p class="card__text">{a.data.description}</p>}
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .album__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+  .album__count {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgb(28 26 27 / 0.7);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    backdrop-filter: blur(6px);
+  }
+</style>

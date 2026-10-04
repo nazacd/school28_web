@@ -1,0 +1,360 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Icon from '@/components/Icon.astro';
+import { locales, useTranslations, type Locale } from '@/i18n/ui';
+import { getLocalizedEntry, getSettings } from '@/lib/content';
+import { url } from '@/lib/routes';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+const s = await getSettings();
+const page = await getLocalizedEntry('pages', lang, 'contact');
+if (!page) throw new Error('Missing src/content/pages/uz/contact.md');
+const { Content } = await render(page);
+
+const subjects = ['general', 'admissions', 'employment', 'other'] as const;
+---
+
+<BaseLayout lang={lang} title={page.data.title} description={page.data.description}>
+  <PageHero lang={lang} title={page.data.title} lead={page.data.description} path="contact" />
+
+  <section class="section">
+    <div class="container contact">
+      <div class="contact__info">
+        <div class="prose" data-reveal><Content /></div>
+
+        <h2 class="contact__heading" data-reveal>{t('contact.details')}</h2>
+        <ul class="details">
+          <li data-reveal>
+            <span class="details__icon"><Icon name="pin" /></span>
+            <div>
+              <span class="details__label">{t('contact.address')}</span>
+              <span>{s.address[lang]}</span>
+              {s.map_link && <a class="link-arrow" href={s.map_link} target="_blank" rel="noopener noreferrer">{t('contact.map')}<Icon name="arrow" /></a>}
+            </div>
+          </li>
+          <li data-reveal style="--reveal-delay: 60ms">
+            <span class="details__icon"><Icon name="phone" /></span>
+            <div>
+              <span class="details__label">{t('contact.phone')}</span>
+              <a href={`tel:${s.phone.replace(/[^+\d]/g, '')}`}>{s.phone}</a>
+            </div>
+          </li>
+          <li data-reveal style="--reveal-delay: 120ms">
+            <span class="details__icon"><Icon name="mail" /></span>
+            <div>
+              <span class="details__label">{t('contact.email')}</span>
+              <a href={`mailto:${s.email}`}>{s.email}</a>
+            </div>
+          </li>
+          <li data-reveal style="--reveal-delay: 180ms">
+            <span class="details__icon"><Icon name="clock" /></span>
+            <div>
+              <span class="details__label">{t('contact.hours')}</span>
+              <span>{s.hours[lang]}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-card" data-reveal="scale">
+        <h2>{t('contact.form.title')}</h2>
+        <form class="form" method="post" action="/api/contact" data-contact-form novalidate>
+          <input type="hidden" name="lang" value={lang} />
+          <!-- Honeypot: real visitors never see or fill this field. -->
+          <div class="hp" aria-hidden="true">
+            <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form__row">
+            <label class="field">
+              <span>{t('contact.form.name')}</span>
+              <input type="text" name="name" required maxlength="120" autocomplete="name" />
+            </label>
+            <label class="field">
+              <span>{t('contact.form.email')}</span>
+              <input type="email" name="email" required maxlength="200" autocomplete="email" />
+            </label>
+          </div>
+          <div class="form__row">
+            <label class="field">
+              <span>{t('contact.form.phone')}</span>
+              <input type="tel" name="phone" maxlength="40" autocomplete="tel" />
+            </label>
+            <label class="field">
+              <span>{t('contact.form.subject')}</span>
+              <select name="subject">
+                {subjects.map((k) => <option value={k}>{t(`contact.form.subject.${k}`)}</option>)}
+              </select>
+            </label>
+          </div>
+          <label class="field">
+            <span>{t('contact.form.message')}</span>
+            <textarea name="message" rows="6" required minlength="10" maxlength="5000"></textarea>
+          </label>
+          <label class="consent">
+            <input type="checkbox" name="consent" value="yes" required />
+            <span>
+              <a href={url(lang, 'privacy-policy')}>{t('contact.form.consent')}</a>
+            </span>
+          </label>
+
+          <button class="btn form__submit" type="submit" data-label={t('contact.form.send')} data-sending={t('contact.form.sending')}>
+            <span>{t('contact.form.send')}</span>
+            <Icon name="arrow" />
+          </button>
+          <p class="form__status" role="status" aria-live="polite" data-ok={t('contact.form.success')} data-error={t('contact.form.error')}></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {
+    s.map_embed && (
+      <section class="map-wrap">
+        <div class="container">
+          <div class="map" data-reveal="fade">
+            <iframe
+              src={s.map_embed}
+              title={t('contact.address')}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<script>
+  // Send the form without leaving the page. Without JavaScript the form still
+  // posts normally and the server redirects to the "thank you" page.
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const button = form.querySelector<HTMLButtonElement>('.form__submit')!;
+    const label = button.querySelector('span')!;
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      status.className = 'form__status';
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        form.querySelector<HTMLElement>(':invalid')?.focus();
+        return;
+      }
+      button.disabled = true;
+      label.textContent = button.dataset.sending!;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        form.classList.remove('was-validated');
+        status.textContent = status.dataset.ok!;
+        status.classList.add('is-ok');
+      } catch {
+        status.textContent = status.dataset.error!;
+        status.classList.add('is-error');
+      } finally {
+        button.disabled = false;
+        label.textContent = button.dataset.label!;
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+  .contact__heading {
+    font-size: 1.4rem;
+    margin: 36px 0 20px;
+  }
+  .details {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .details li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .details li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .details a:not(.link-arrow):hover {
+    color: var(--brand);
+  }
+  .details__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--accent-50);
+    color: var(--accent);
+  }
+  .details__label {
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-card {
+    padding: clamp(24px, 4vw, 44px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  .form-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
+  .form {
+    display: grid;
+    gap: 18px;
+  }
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 560px) {
+    .form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .field {
+    display: grid;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px rgb(1 110 106 / 0.12);
+  }
+  .was-validated :invalid {
+    border-color: #c0392b;
+  }
+  .consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .consent input {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--brand);
+    flex: none;
+  }
+  .consent a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .was-validated .consent input:invalid + span {
+    color: #c0392b;
+  }
+  .form__submit {
+    justify-self: start;
+  }
+  .form__submit:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  .form__status {
+    margin: 0;
+    font-weight: 600;
+  }
+  .form__status:empty {
+    display: none;
+  }
+  .form__status.is-ok {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--accent-50);
+    color: var(--accent);
+  }
+  .form__status.is-error {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--brand-50);
+    color: var(--brand);
+  }
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .map-wrap {
+    padding-bottom: clamp(56px, 9vw, 112px);
+  }
+  .map {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    aspect-ratio: 21 / 9;
+    min-height: 320px;
+  }
+  .map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

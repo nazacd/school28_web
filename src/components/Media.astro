@@ -1,0 +1,111 @@
+---
+import Icon from './Icon.astro';
+
+// Shows an image if `src` is set, otherwise a branded placeholder.
+// Images are lazy-loaded by default; pass `eager` for the main image above the fold.
+interface Props {
+  src?: string;
+  alt?: string;
+  ratio?: string; // CSS aspect-ratio, e.g. "16 / 10"
+  eager?: boolean;
+  label?: string; // text shown on the placeholder
+  tone?: 'brand' | 'accent' | 'neutral';
+  icon?: 'image' | 'user';
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const {
+  src,
+  alt = '',
+  ratio = '16 / 10',
+  eager = false,
+  label,
+  tone = 'brand',
+  icon = 'image',
+  width = 1200,
+  height = 750,
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={['media', `media--${tone}`, className]} style={`aspect-ratio: ${ratio}`}>
+  {
+    src ? (
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : 'auto'}
+        decoding="async"
+      />
+    ) : (
+      <div class="media__placeholder" role="img" aria-label={alt || label || ''}>
+        <Icon name={icon} size={icon === 'user' ? 44 : 34} />
+        {label && <span>{label}</span>}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease);
+  }
+  .media__placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background:
+      radial-gradient(120% 90% at 100% 0%, var(--ph-a) 0%, transparent 55%),
+      radial-gradient(90% 80% at 0% 100%, var(--ph-b) 0%, transparent 60%),
+      var(--ph-bg);
+    color: var(--ph-fg);
+  }
+  .media__placeholder::after {
+    /* subtle dotted texture */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.08;
+  }
+  .media--brand {
+    --ph-bg: var(--brand-50);
+    --ph-a: var(--brand-100);
+    --ph-b: var(--accent-50);
+    --ph-fg: var(--brand);
+  }
+  .media--accent {
+    --ph-bg: var(--accent-50);
+    --ph-a: var(--accent-100);
+    --ph-b: var(--brand-50);
+    --ph-fg: var(--accent);
+  }
+  .media--neutral {
+    --ph-bg: var(--surface-2);
+    --ph-a: #ebe6e2;
+    --ph-b: var(--brand-50);
+    --ph-fg: var(--muted);
+  }
+</style>

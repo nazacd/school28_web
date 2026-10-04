@@ -1,0 +1,13 @@
+---
+import { defaultLocale, isLocale } from '@/i18n/ui';
+
+// "/" sends visitors to their browser's language (falls back to Uzbek).
+export const prerender = false;
+
+const accepted = (Astro.request.headers.get('accept-language') ?? '')
+  .split(',')
+  .map((part) => part.split(';')[0].trim().slice(0, 2).toLowerCase());
+const lang = accepted.find(isLocale) ?? defaultLocale;
+Astro.response.headers.set('Vary', 'Accept-Language');
+return Astro.redirect(`/${lang}/`, 302);
+---
