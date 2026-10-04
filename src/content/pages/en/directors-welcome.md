@@ -1,5 +1,5 @@
 ---
-title: "Director\u2019s welcome"
+title: "Director’s welcome"
 description: "A message from the Head of School to students, parents and visitors."
 hero_image: ""
 ---

@@ -1,6 +1,6 @@
 ---
 name: "Ism Familiya"
-role: "Direktorning o\u02bbquv ishlari bo\u02bbyicha o\u02bbrinbosari"
+role: "Direktorning oʻquv ishlari boʻyicha oʻrinbosari"
 group: leadership
 order: 2
 photo: ""

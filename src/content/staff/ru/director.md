@@ -1,6 +1,6 @@
 ---
-name: "\u0418\u043c\u044f \u0424\u0430\u043c\u0438\u043b\u0438\u044f"
-role: "\u0414\u0438\u0440\u0435\u043a\u0442\u043e\u0440 \u0448\u043a\u043e\u043b\u044b"
+name: "Имя Фамилия"
+role: "Директор школы"
 group: leadership
 order: 1
 photo: ""

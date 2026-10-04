@@ -8,6 +8,8 @@ import { z } from 'astro/zod';
 // Empty image fields are fine: the site shows a styled placeholder instead.
 
 const image = z.string().trim().optional().nullable().transform((v) => v || undefined);
+// The editor saves an empty date as null or "": treat both as "no date".
+const optionalDate = z.preprocess((v) => (v === null || v === '' ? undefined : v), z.coerce.date().optional());
 
 // Entry id = "<lang>/<file name>", e.g. "ru/about".
 const md = (dir: string) =>
@@ -45,7 +47,7 @@ const pages = defineCollection({
     title: z.string(),
     description: z.string(),
     hero_image: image,
-    updated: z.coerce.date().optional(),
+    updated: optionalDate,
   }),
 });
 
@@ -66,7 +68,7 @@ const events = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    end_date: z.coerce.date().optional().nullable(),
+    end_date: optionalDate,
     location: z.string(),
     cover: image,
     draft: z.boolean().default(false),

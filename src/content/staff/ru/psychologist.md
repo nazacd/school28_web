@@ -1,6 +1,6 @@
 ---
-name: "\u0418\u043c\u044f \u0424\u0430\u043c\u0438\u043b\u0438\u044f"
-role: "\u0428\u043a\u043e\u043b\u044c\u043d\u044b\u0439 \u043f\u0441\u0438\u0445\u043e\u043b\u043e\u0433"
+name: "Имя Фамилия"
+role: "Школьный психолог"
 group: support
 order: 20
 photo: ""

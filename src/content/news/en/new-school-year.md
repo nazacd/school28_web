@@ -1,6 +1,6 @@
 ---
 title: "A new school year has begun"
-description: "We started the 2026\u20132027 school year with a Knowledge Day celebration."
+description: "We started the 2026–2027 school year with a Knowledge Day celebration."
 date: 2026-09-02
 cover: ""
 draft: false

@@ -1,6 +1,6 @@
 ---
 title: "Aloqa"
-description: "Maktab bilan bog\u02bblaning: manzil, telefon, elektron pochta va aloqa shakli."
+description: "Maktab bilan bogʻlaning: manzil, telefon, elektron pochta va aloqa shakli."
 hero_image: ""
 ---
 

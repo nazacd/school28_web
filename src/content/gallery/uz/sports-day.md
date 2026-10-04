@@ -1,6 +1,6 @@
 ---
 title: "Sport bayrami"
-description: "Sinflar o\u02bbrtasidagi sport musobaqalari."
+description: "Sinflar oʻrtasidagi sport musobaqalari."
 date: 2026-05-20
 cover: ""
 images: []

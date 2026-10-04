@@ -22,8 +22,11 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // "/" only redirects to a language; the thank-you page is not for search engines.
-      filter: (page) => new URL(page).pathname !== '/' && !page.includes('/contact/thanks/'),
+      // "/" only redirects to a language; the editor and thank-you page are not for search engines.
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        return path !== '/' && !path.startsWith('/admin') && !path.includes('/contact/thanks/');
+      },
       i18n: {
         defaultLocale: 'uz',
         locales: { uz: 'uz-UZ', ru: 'ru-RU', en: 'en-US' },

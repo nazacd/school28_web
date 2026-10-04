@@ -1,6 +1,6 @@
 ---
-title: "Yangi o\u02bbquv yili boshlandi"
-description: "Bilimlar kuni bayrami bilan 2026\u20132027 o\u02bbquv yilini boshladik."
+title: "Yangi oʻquv yili boshlandi"
+description: "Bilimlar kuni bayrami bilan 2026–2027 oʻquv yilini boshladik."
 date: 2026-09-02
 cover: ""
 draft: false

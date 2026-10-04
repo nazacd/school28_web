@@ -1,6 +1,6 @@
 ---
 title: "Direktor murojaati"
-description: "Maktab direktorining o\u02bbquvchilar, ota-onalar va mehmonlarga murojaati."
+description: "Maktab direktorining oʻquvchilar, ota-onalar va mehmonlarga murojaati."
 hero_image: ""
 ---
 

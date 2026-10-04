@@ -1,3 +1,8 @@
+---
+// Content editor (Decap CMS). Its settings are in public/admin/config.yml.
+// This is an Astro page (not a file in public/) so /admin and /admin/ work in dev and production.
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,13 +11,14 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Content editor — School No. 28</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script>
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <script is:inline>
       window.CMS_MANUAL_INIT = true;
     </script>
-    <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+    <script is:inline src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
   </head>
   <body>
-    <script>
+    <script is:inline>
       // Settings live in /admin/config.yml. The login server is this same website
       // (see src/pages/api/auth.ts), so its address is filled in here at runtime.
       CMS.init({

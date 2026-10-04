@@ -1,6 +1,6 @@
 ---
 name: "Ism Familiya"
-role: "Ingliz tili o\u02bbqituvchisi"
+role: "Ingliz tili oʻqituvchisi"
 group: teachers
 order: 11
 photo: ""

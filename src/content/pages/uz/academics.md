@@ -1,6 +1,6 @@
 ---
-title: "Ta\u02bclim"
-description: "Boshlang\u02bbich sinflardan yuqori sinflargacha o\u02bbquv dasturimiz, fanlar va yondashuvimiz."
+title: "Taʼlim"
+description: "Boshlangʻich sinflardan yuqori sinflargacha oʻquv dasturimiz, fanlar va yondashuvimiz."
 hero_image: ""
 ---
 

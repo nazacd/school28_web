@@ -25,13 +25,15 @@ npm start            # run the production build
 npm run check        # type-check
 ```
 
-Requires Node.js 22+.
+Requires **Node.js 22.12+ with npm 10+**. Install Node from [nodejs.org](https://nodejs.org) or with
+[nvm](https://github.com/nvm-sh/nvm) (`nvm install 22`). The `npm` package from Debian/Ubuntu `apt` (npm 9.x) is too old
+and can hang during `npm install`.
 
 ## Project structure
 
 ```
 public/
-  admin/             Web editor (Decap CMS): index.html + config.yml
+  admin/             Web editor settings (Decap CMS config.yml + preview styles)
   uploads/           Images uploaded through the editor
 src/
   content/           ← ALL TEXT CONTENT (Markdown / JSON)
@@ -47,7 +49,7 @@ src/
   lib/routes.ts      URL map and navigation menus
   components/        Header, Footer, cards, …
   layouts/           BaseLayout (SEO head), PageLayout (text pages)
-  pages/             Routes. [lang]/… are the localized pages; api/… are server endpoints
+  pages/             Routes. [lang]/… are the localized pages; api/… are server endpoints; admin/ is the editor
   styles/global.css  Design tokens (colors, spacing, fonts) and base styles
 Dockerfile, docker-compose.yml, .env.example
 ```
@@ -83,12 +85,18 @@ Notes:
 #### Editing locally without GitHub
 
 ```bash
-npm run dev       # terminal 1
-npm run cms       # terminal 2 (local editor backend on :8081)
-# open http://localhost:4321/admin/
+npm run dev       # starts the site on http://localhost:4321
+npm run cms       # in a second terminal: local editor backend on :8081 (keep it running)
+# open http://localhost:4321/admin and click "Login"
 ```
 
-Changes are written straight to `src/content/`.
+Changes are written straight to the files in `src/content/` and appear on the dev site immediately.
+Commit and push them with git as usual.
+
+Tips:
+- Open the editor at **`localhost`** (not your LAN IP). Local mode only turns on for `localhost`/`127.0.0.1`.
+- Astro 7 keeps one dev server per project. If `npm run dev` says *"Dev server already running"*,
+  use `npx astro dev stop`, then start it again.
 
 ### Option B: editing the files
 
@@ -133,7 +141,7 @@ so no third-party service is needed.
    - Authorization callback URL: `https://<your-domain>/api/callback`
 2. Put the **Client ID** and a new **Client secret** in `.env` (`GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`).
 3. Give every editor **write access** to the `nazacd/school28_web` repository.
-4. The editor saves to the `main` branch (set in `public/admin/index.html` and `public/admin/config.yml`).
+4. The editor saves to the `main` branch (set in `src/pages/admin/index.astro` and `public/admin/config.yml`).
 
 ---
 
