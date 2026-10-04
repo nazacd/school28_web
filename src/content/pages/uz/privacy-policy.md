@@ -1,6 +1,6 @@
 ---
 title: "Maxfiylik siyosati"
-description: "Ushbu saytda shaxsiy ma\u02bclumotlarni qanday yig\u02bbishimiz, foydalanishimiz va himoya qilishimiz."
+description: "Ushbu saytda shaxsiy maʼlumotlarni qanday yigʻishimiz, foydalanishimiz va himoya qilishimiz."
 hero_image: ""
 updated: 2026-09-01
 ---

@@ -8,7 +8,7 @@ backend:
   name: github
   repo: nazacd/school28_web
   branch: main
-  # base_url and auth_endpoint are set in admin/index.html (this same server handles the login)
+  # base_url and auth_endpoint are set in src/pages/admin/index.astro (this same server handles the login)
 
 # For local editing without GitHub: run `npm run cms` next to `npm run dev`
 # and open http://localhost:4321/admin/

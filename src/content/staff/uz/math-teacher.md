@@ -1,6 +1,6 @@
 ---
 name: "Ism Familiya"
-role: "Matematika o\u02bbqituvchisi"
+role: "Matematika oʻqituvchisi"
 group: teachers
 order: 10
 photo: ""

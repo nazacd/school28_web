@@ -1,5 +1,5 @@
 ---
-title: "So\u02bbnggi qo\u02bbng\u02bbiroq 2026"
+title: "Soʻnggi qoʻngʻiroq 2026"
 description: "Bitiruvchilarimiz bilan xayrlashuv."
 date: 2026-05-25
 cover: ""

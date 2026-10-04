@@ -1,6 +1,6 @@
 ---
 title: "Bolalar himoyasi"
-description: "Har bir bolaning xavfsizligini ta\u02bcminlash bo\u02bbyicha majburiyatlarimiz va xavotir tug\u02bbilganda nima qilish kerak."
+description: "Har bir bolaning xavfsizligini taʼminlash boʻyicha majburiyatlarimiz va xavotir tugʻilganda nima qilish kerak."
 hero_image: ""
 updated: 2026-09-01
 ---

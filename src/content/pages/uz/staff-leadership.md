@@ -1,6 +1,6 @@
 ---
 title: "Rahbariyat va xodimlar"
-description: "Maktabimiz rahbariyati, o\u02bbqituvchilari va xodimlari bilan tanishing."
+description: "Maktabimiz rahbariyati, oʻqituvchilari va xodimlari bilan tanishing."
 hero_image: ""
 ---
 

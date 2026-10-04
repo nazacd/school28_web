@@ -1,6 +1,6 @@
 ---
-title: "Bo\u02bbsh ish o\u02bbrinlari"
-description: "Jamoamizga qo\u02bbshiling. Bo\u02bbsh ish o\u02bbrinlari va ariza topshirish tartibi."
+title: "Boʻsh ish oʻrinlari"
+description: "Jamoamizga qoʻshiling. Boʻsh ish oʻrinlari va ariza topshirish tartibi."
 hero_image: ""
 ---
 

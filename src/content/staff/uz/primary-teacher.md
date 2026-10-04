@@ -1,6 +1,6 @@
 ---
 name: "Ism Familiya"
-role: "Boshlang\u02bbich sinf o\u02bbqituvchisi"
+role: "Boshlangʻich sinf oʻqituvchisi"
 group: teachers
 order: 12
 photo: ""

@@ -1,6 +1,6 @@
 ---
 title: "Olimpiadada yuqori natijalar"
-description: "O\u02bbquvchilarimiz shahar fan olimpiadasida sovrinli o\u02bbrinlarni egallashdi."
+description: "Oʻquvchilarimiz shahar fan olimpiadasida sovrinli oʻrinlarni egallashdi."
 date: 2026-09-20
 cover: ""
 draft: false
