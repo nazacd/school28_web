@@ -38,10 +38,12 @@ export function isSameOrigin(request: Request): boolean {
 
 export function clientIp(request: Request, fallback: string): string {
   if (env('TRUST_PROXY') === 'true') {
-    const fwd = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-    if (fwd) return fwd;
-    const real = request.headers.get('x-real-ip');
+    // X-Real-IP is set by our nginx to the connecting address, so visitors can't fake it.
+    const real = request.headers.get('x-real-ip')?.trim();
     if (real) return real;
+    // Otherwise use the entry added by the nearest proxy (the last one); earlier entries are client-supplied.
+    const fwd = request.headers.get('x-forwarded-for')?.split(',').pop()?.trim();
+    if (fwd) return fwd;
   }
   return fallback;
 }

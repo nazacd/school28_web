@@ -1,0 +1,35 @@
+# =============================================================================
+# Production stack for school28.uz — lives on the VPS at /opt/school28/docker-compose.yml
+#
+# The image is built by GitHub Actions and pulled from Docker Hub.
+# The edge nginx container (makonbook-nginx) proxies school28.uz to this
+# container over the shared external network sat_makon_network.
+# No ports are published on the host.
+# =============================================================================
+
+services:
+  web:
+    image: nazacd/school28-web:latest
+    container_name: school28-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321
+      TRUST_PROXY: "true"
+    networks:
+      - sat_makon_network
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  sat_makon_network:
+    external: true
