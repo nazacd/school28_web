@@ -51,7 +51,9 @@ src/
   layouts/           BaseLayout (SEO head), PageLayout (text pages)
   pages/             Routes. [lang]/… are the localized pages; api/… are server endpoints; admin/ is the editor
   styles/global.css  Design tokens (colors, spacing, fonts) and base styles
-Dockerfile, docker-compose.yml, .env.example
+Dockerfile, docker-compose.yml   Docker image + local compose
+deploy/            Production compose, deploy script, nginx config (see DEPLOY.md)
+.github/workflows/ Build & deploy pipeline
 ```
 
 ### Brand colors
@@ -145,37 +147,17 @@ so no third-party service is needed.
 
 ---
 
-## Deployment (Docker, own VPS)
+## Deployment
+
+Production runs on the VPS behind the existing edge nginx, and is deployed automatically from GitHub:
+**push to `main` → GitHub Actions builds the image → Docker Hub (`nazacd/school28-web`) → the VPS pulls and restarts it.**
+Publishing in `/admin` is a push to `main` too, so content changes go live on their own within a few minutes.
+
+The step-by-step setup (secrets, deploy key, nginx and certificate) is in **[DEPLOY.md](DEPLOY.md)**.
+
+To run the production image locally:
 
 ```bash
-git clone https://github.com/nazacd/school28_web.git && cd school28_web
-cp .env.example .env        # edit SITE_URL, SMTP_*, GITHUB_*
-docker compose up -d --build
+cp .env.example .env
+docker compose up -d --build     # http://localhost:4321
 ```
-
-The container listens on `127.0.0.1:4321`. Put a reverse proxy in front of it for the domain and HTTPS.
-A minimal Nginx example:
-
-```nginx
-server {
-    server_name school28.example.com;
-    location / {
-        proxy_pass http://127.0.0.1:4321;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-    client_max_body_size 1m;
-    # listen 443 ssl; … (e.g. via certbot --nginx)
-}
-```
-
-**Applying content changes:** the site is pre-built, so after edits (from `/admin` or git) rebuild it:
-
-```bash
-git pull && docker compose up -d --build
-```
-
-This can be automated later with a cron job, a GitHub Actions deploy, or a webhook. That is the deployment topic
-we will go through separately.
