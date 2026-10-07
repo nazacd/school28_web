@@ -1,52 +1,55 @@
 ---
-title: "School No. 28"
-description: "Official website of General Secondary School No. 28: admissions, academics, news and events."
-hero_title: "Knowledge, care and a future — in one school"
-hero_subtitle: "We create a friendly environment that sparks every student’s curiosity, builds confidence and prepares them for life."
+title: School No. 28
+description: "Official website of General Secondary School No. 28: admissions,
+  academics, news and events."
+hero_title: Knowledge, care and a future — in one school
+hero_subtitle: We create a friendly environment that sparks every student’s
+  curiosity, builds confidence and prepares them for life.
 hero_image: ""
 hero_primary:
-  label: "Admissions"
-  link: "admissions"
+  label: Admissions
+  link: admissions
 hero_secondary:
-  label: "Discover our school"
-  link: "about"
+  label: Discover our school
+  link: about
 stats:
-  - value: "1200+"
-    label: "students"
+  - value: 1200+
+    label: students
   - value: "85"
-    label: "teachers"
-  - value: "60+"
-    label: "years of history"
-  - value: "40+"
-    label: "clubs & societies"
-highlights_title: "Why choose our school?"
+    label: teachers
+  - value: 60+
+    label: years of history
+  - value: 40+
+    label: clubs & societies
+highlights_title: Why choose our school?
 highlights:
-  - title: "Quality education"
-    text: "Modern curricula and experienced teachers make every subject engaging."
-    link: "academics"
-  - title: "A safe environment"
-    text: "The safety and wellbeing of children is our highest priority."
-    link: "child-protection"
-  - title: "Learning in three languages"
-    text: "In-depth study of Uzbek, Russian and English."
-    link: "academics"
-  - title: "Clubs & sports"
-    text: "Robotics, art, music, football and much more."
-    link: "gallery"
-  - title: "Partnership with parents"
-    text: "Open communication and regular meetings help us grow together."
-    link: "about/statement-of-community"
-  - title: "Join our team"
-    text: "We welcome talented and passionate educators."
-    link: "about/employment"
-welcome_title: "Every child is a whole world"
-welcome_author: "Full Name"
-welcome_role: "Head of School"
+  - title: Quality education
+    text: Modern curricula and experienced teachers make every subject engaging.
+    link: academics
+  - title: A safe environment
+    text: The safety and wellbeing of children is our highest priority.
+    link: child-protection
+  - title: Learning in three languages
+    text: In-depth study of Uzbek, Russian and English.
+    link: academics
+  - title: Clubs & sports
+    text: Robotics, art, music, football and much more.
+    link: gallery
+  - title: Partnership with parents
+    text: Open communication and regular meetings help us grow together.
+    link: about/statement-of-community
+  - title: Join our team
+    text: We welcome talented and passionate educators.
+    link: about/employment
+welcome_title: Every child is a whole world
+welcome_author: Full Name
+welcome_role: Head of School
 welcome_image: ""
-cta_title: "Admissions open for the 2027–2028 school year"
-cta_text: "Learn about documents, deadlines and the admissions process. Have questions? Get in touch."
-cta_label: "Apply now"
-cta_link: "contact"
+cta_title: Admissions open for the 2027–2028 school year
+cta_text: Learn about documents, deadlines and the admissions process. Have
+  questions? Get in touch.
+cta_label: Apply now
+cta_link: contact
 ---
 
 Welcome to our school! To us, every student is a unique person with their own talents and dreams. Our mission is not only to teach, but to help children think independently, respect others and take responsibility.
