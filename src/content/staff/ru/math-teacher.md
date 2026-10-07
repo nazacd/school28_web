@@ -1,9 +1,9 @@
 ---
-name: "Имя Фамилия"
-role: "Учитель математики"
+name: Имя Фамилия
+role: Учитель математики
 group: teachers
 order: 10
-photo: ""
+photo: /uploads/img_0557.jpg
 email: ""
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: "Ism Familiya"
-role: "Matematika oʻqituvchisi"
+name: Bakhtiyorov Nazarbek
+role: Matematika oʻqituvchisi
 group: teachers
 order: 10
-photo: ""
+photo: /uploads/img_0557.jpg
 email: ""
 ---
 
