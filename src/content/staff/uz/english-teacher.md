@@ -1,12 +1,9 @@
 ---
-name: "Ism Familiya"
-role: "Ingliz tili oʻqituvchisi"
+name: Askarova Iroda
+role: Ingliz tili oʻqituvchisi
 group: teachers
 order: 11
-photo: ""
+photo: /uploads/img_0573.jpg
 email: ""
 ---
-
 Kommunikativ metodika asosida dars beradi.
-
-*Vaqtinchalik matn.*
