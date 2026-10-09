@@ -1,9 +1,8 @@
 ---
-title: "Direktor murojaati"
-description: "Maktab direktorining oʻquvchilar, ota-onalar va mehmonlarga murojaati."
+title: Direktor murojaati
+description: Maktab direktorining oʻquvchilar, ota-onalar va mehmonlarga murojaati.
 hero_image: ""
 ---
-
 Hurmatli oʻquvchilar, ota-onalar va mehmonlar!
 
 28-sonli maktabga xush kelibsiz! Maktabimizga qiziqish bildirganingiz uchun rahmat.
@@ -18,5 +17,5 @@ Ushbu saytda oʻquv dasturlarimiz, qabul, tadbirlar va maktab hayoti haqida maʼ
 
 Hurmat bilan,
 
-**Ism Familiya**\
+**Baysalova Ayjan Alibekovna**\
 Maktab direktori

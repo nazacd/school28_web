@@ -1,9 +1,9 @@
 ---
-title: "Director’s welcome"
-description: "A message from the Head of School to students, parents and visitors."
+title: Director’s welcome
+description: A message from the Head of School to students, parents and visitors.
 hero_image: ""
+updated: null
 ---
-
 Dear students, parents and guests,
 
 Welcome to School No. 28! Thank you for your interest in our school.
@@ -18,5 +18,5 @@ On this website you will find information about our programmes, admissions, even
 
 With warm regards,
 
-**Full Name**\
+**Baysalova Ayjan Alibekovna**\
 Head of School
