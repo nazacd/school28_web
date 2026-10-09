@@ -1,12 +1,9 @@
 ---
-name: Bakhtiyorov Nazarbek
-role: Matematika oʻqituvchisi
+name: Alimdjanova Nigora
+role: Informatika fani oʻqituvchisi
 group: teachers
 order: 10
-photo: /uploads/img_0557.jpg
+photo: /uploads/img_0552.jpg
 email: ""
 ---
-
-Olimpiada gʻoliblarini tayyorlagan tajribali pedagog.
-
-*Vaqtinchalik matn.*
+Преподаватель обучает основы информатики, цифровой грамотности и практическим навыкам работы с технологиями. Он помогает учащимся осваивать алгоритмы, программное обеспечение и методы решения задач, необходимые в современном цифровом мире.

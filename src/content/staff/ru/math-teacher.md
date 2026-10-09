@@ -1,9 +1,9 @@
 ---
-name: Имя Фамилия
-role: Учитель математики
+name: Алимджанова Нигора
+role: Учитель информатики
 group: teachers
 order: 10
-photo: /uploads/img_0557.jpg
+photo: /uploads/img_0552.jpg
 email: ""
 ---
 
