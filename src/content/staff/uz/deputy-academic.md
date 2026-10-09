@@ -1,9 +1,9 @@
 ---
-name: Ism Familiya
+name: Alimbayeva Aynur Saxibovna
 role: Direktorning maʼnaviy va maʼrifiy ishlar boʻyicha direktor oʻrinbosari
 group: leadership
 order: 2
-photo: ""
+photo: /uploads/img_0556.jpg
 email: ""
 ---
 
