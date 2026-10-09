@@ -1,9 +1,9 @@
 ---
-name: "Ism Familiya"
-role: "Direktorning maʼnaviy-maʼrifiy ishlar boʻyicha oʻrinbosari"
+name: Ubaydullayeva Visola Karimjon qizi
+role: Maktab maslahatchisi
 group: leadership
 order: 3
-photo: ""
+photo: /uploads/img_0606.jpg
 email: ""
 ---
 
