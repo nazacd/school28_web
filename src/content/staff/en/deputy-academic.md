@@ -6,7 +6,4 @@ order: 2
 photo: /uploads/img_0556.jpg
 email: ""
 ---
-
 Oversees the curriculum and the quality of teaching and learning.
-
-*Placeholder text.*

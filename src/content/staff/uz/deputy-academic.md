@@ -6,7 +6,4 @@ order: 2
 photo: /uploads/img_0556.jpg
 email: ""
 ---
-
 Oʻquv dasturlari va taʼlim sifatini nazorat qiladi.
-
-*Vaqtinchalik matn.*
