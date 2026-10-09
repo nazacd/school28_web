@@ -1,36 +1,36 @@
 {
+  "founded": "",
+  "socials": {
+    "telegram": "https://t.me/kelajak_sari_28",
+    "instagram": "https://www.instagram.com/28.maktab.maslahatchi?igsi=M2J6anpyeDQxcGh0",
+    "facebook": "",
+    "youtube": ""
+  },
+  "logo": "",
   "name": {
     "uz": "28-sonli maktab",
     "ru": "Школа №28",
     "en": "School No. 28"
   },
   "short_name": "28",
+  "phone": "+998 77 250 08 66",
   "tagline": {
     "uz": "Umumiy oʻrta taʼlim maktabi",
     "ru": "Общеобразовательная школа",
     "en": "General secondary school"
   },
-  "logo": "",
+  "hours": {
+    "uz": "Dushanba – Shanba, 08:00 – 14:00",
+    "ru": "Понедельник – суббота, 08:00 – 14:00",
+    "en": "Monday – Saturday, 08:00 – 14:00"
+  },
   "og_image": "",
   "address": {
-    "uz": "Shahar nomi, Koʻcha nomi, 28-uy",
-    "ru": "Город, улица Название, дом 28",
-    "en": "28 Street Name, Town"
+    "uz": "Toshkent viloyati, Qibray tumani, “Oʻtkir” MFY, Oʻtkir koʻchasi, 217-uy",
+    "ru": "Ташкентская область, Кибрайский район, Сход граждан махалли «Уткир», улица Уткир, дом 217",
+    "en": "217 Utkir Street, Utkir Citizens' Assembly Mahalla Qibray District, Tashkent Region"
   },
-  "hours": {
-    "uz": "Dushanba – Shanba, 08:00 – 17:00",
-    "ru": "Понедельник – суббота, 08:00 – 17:00",
-    "en": "Monday – Saturday, 08:00 – 17:00"
-  },
-  "phone": "+998 00 000 00 00",
-  "email": "info@example.com",
-  "map_link": "",
   "map_embed": "",
-  "founded": "",
-  "socials": {
-    "telegram": "https://t.me/",
-    "instagram": "https://instagram.com/",
-    "facebook": "",
-    "youtube": ""
-  }
+  "email": "dilshodmiraxmedov13@gmail.com",
+  "map_link": ""
 }
