@@ -1,9 +1,9 @@
 ---
-name: "Full Name"
-role: "School Psychologist"
+name: Full Name
+role: School Psychologist
 group: support
 order: 20
-photo: ""
+photo: /uploads/img_0558.jpg
 email: ""
 ---
 
