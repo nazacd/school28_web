@@ -6,7 +6,4 @@ order: 12
 photo: /uploads/img_0596.jpg
 email: ""
 ---
-
 Loves working with our youngest learners.
-
-*Placeholder text.*
