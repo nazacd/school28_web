@@ -42,7 +42,7 @@ highlights:
     text: Мы приглашаем талантливых и увлечённых педагогов.
     link: about/employment
 welcome_title: Каждый ребёнок — целый мир
-welcome_author: Имя Фамилия
+welcome_author: Байсалова Айжан Алибековна
 welcome_role: Директор школы
 welcome_image: /uploads/img_0585.jpg
 cta_title: Открыт приём на 2027–2028 учебный год

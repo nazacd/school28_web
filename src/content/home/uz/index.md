@@ -43,7 +43,7 @@ highlights:
     text: Biz iqtidorli va gʻayratli pedagoglarni jamoamizga taklif qilamiz.
     link: about/employment
 welcome_title: Har bir bola — alohida dunyo
-welcome_author: Ism Familiya
+welcome_author: Baysalova Ayjan Alibekovna
 welcome_role: Maktab direktori
 welcome_image: /uploads/img_0585.jpg
 cta_title: 2027–2028 oʻquv yili uchun qabul ochiq

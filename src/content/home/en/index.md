@@ -42,7 +42,7 @@ highlights:
     text: We welcome talented and passionate educators.
     link: about/employment
 welcome_title: Every child is a whole world
-welcome_author: Full Name
+welcome_author: Baysalova Ayjan Alibekovna
 welcome_role: Head of School
 welcome_image: /uploads/img_0585.jpg
 cta_title: Admissions open for the 2027–2028 school year
