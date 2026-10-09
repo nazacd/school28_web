@@ -1,6 +1,6 @@
 ---
-name: "Full Name"
-role: "Deputy Head, Academics"
+name: Full Name
+role: Deputy Director for Spiritual and Educational Affairs
 group: leadership
 order: 2
 photo: ""

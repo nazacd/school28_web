@@ -1,6 +1,6 @@
 ---
-name: "Ism Familiya"
-role: "Direktorning oʻquv ishlari boʻyicha oʻrinbosari"
+name: Ism Familiya
+role: Direktorning maʼnaviy va maʼrifiy ishlar boʻyicha direktor oʻrinbosari
 group: leadership
 order: 2
 photo: ""
