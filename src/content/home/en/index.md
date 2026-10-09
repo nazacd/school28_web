@@ -44,7 +44,7 @@ highlights:
 welcome_title: Every child is a whole world
 welcome_author: Full Name
 welcome_role: Head of School
-welcome_image: ""
+welcome_image: /uploads/img_0585.jpg
 cta_title: Admissions open for the 2027–2028 school year
 cta_text: Learn about documents, deadlines and the admissions process. Have
   questions? Get in touch.

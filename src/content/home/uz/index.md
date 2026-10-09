@@ -45,7 +45,7 @@ highlights:
 welcome_title: Har bir bola — alohida dunyo
 welcome_author: Ism Familiya
 welcome_role: Maktab direktori
-welcome_image: ""
+welcome_image: /uploads/img_0585.jpg
 cta_title: 2027–2028 oʻquv yili uchun qabul ochiq
 cta_text: Hujjatlar, muddatlar va qabul tartibi bilan tanishing. Savollaringiz
   boʻlsa — biz bilan bogʻlaning.

@@ -44,7 +44,7 @@ highlights:
 welcome_title: Каждый ребёнок — целый мир
 welcome_author: Имя Фамилия
 welcome_role: Директор школы
-welcome_image: ""
+welcome_image: /uploads/img_0585.jpg
 cta_title: Открыт приём на 2027–2028 учебный год
 cta_text: Узнайте о документах, сроках и порядке поступления. Есть вопросы —
   свяжитесь с нами.
