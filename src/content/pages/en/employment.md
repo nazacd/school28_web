@@ -1,27 +1,22 @@
 ---
-title: "Employment"
-description: "Join our team of teachers and staff. Current vacancies and how to apply."
+title: Employment
+description: Join our team of teachers and staff. Current vacancies and how to apply.
 hero_image: ""
+updated: null
 ---
-
 We are always happy to hear from talented, caring people who want to make a difference in children's lives.
 
 ## Why work with us
 
-- A friendly, supportive team
-- Professional development and training
-- Modern classrooms and resources
-- A stable, long-established school
+* A friendly, supportive team
+* Professional development and training
+* Modern classrooms and resources
+* A stable, long-established school
 
 ## Current vacancies
 
-| Position | Type | Deadline |
-|---|---|---|
-| Mathematics teacher | Full-time | 30 November |
-| English teacher | Full-time | 30 November |
-| School psychologist | Part-time | Open |
-
-*Example vacancies. Update this table when positions open or close.*
+| There are currently no vacancies available |
+| ------------------------------------------ |
 
 ## How to apply
 

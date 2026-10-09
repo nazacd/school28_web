@@ -1,27 +1,20 @@
 ---
-title: "Boʻsh ish oʻrinlari"
-description: "Jamoamizga qoʻshiling. Boʻsh ish oʻrinlari va ariza topshirish tartibi."
+title: Boʻsh ish oʻrinlari
+description: Jamoamizga qoʻshiling. Boʻsh ish oʻrinlari va ariza topshirish tartibi.
 hero_image: ""
 ---
-
 Biz bolalar hayotini yaxshi tomonga oʻzgartirishni istagan isteʼdodli va fidoyi insonlarni doimo kutamiz.
 
 ## Nega biz bilan ishlash kerak
 
-- Ahil va qoʻllab-quvvatlovchi jamoa
-- Malaka oshirish va oʻqitish imkoniyatlari
-- Zamonaviy sinfxonalar va resurslar
-- Uzoq yillik anʼanalarga ega barqaror maktab
+* Ahil va qoʻllab-quvvatlovchi jamoa
+* Malaka oshirish va oʻqitish imkoniyatlari
+* Zamonaviy sinfxonalar va resurslar
+* Uzoq yillik anʼanalarga ega barqaror maktab
 
 ## Boʻsh ish oʻrinlari
 
-| Lavozim | Bandlik | Muddat |
-|---|---|---|
-| Matematika oʻqituvchisi | Toʻliq | 30-noyabr |
-| Ingliz tili oʻqituvchisi | Toʻliq | 30-noyabr |
-| Maktab psixologi | Qisman | Ochiq |
-
-*Namuna sifatidagi lavozimlar. Jadvalni kerak boʻlganda yangilang.*
+Hozirda bo'sh ish o'rinlari mavjud emas
 
 ## Ariza topshirish tartibi
 
