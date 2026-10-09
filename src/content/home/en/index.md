@@ -5,7 +5,7 @@ description: "Official website of General Secondary School No. 28: admissions,
 hero_title: Knowledge, care and a future — in one school
 hero_subtitle: We create a friendly environment that sparks every student’s
   curiosity, builds confidence and prepares them for life.
-hero_image: /uploads/img_0590.jpg
+hero_image: ""
 hero_primary:
   label: Admissions
   link: admissions
@@ -13,13 +13,13 @@ hero_secondary:
   label: Discover our school
   link: about
 stats:
-  - value: 1200+
+  - value: "865"
     label: students
-  - value: "85"
+  - value: "41"
     label: teachers
-  - value: 60+
-    label: years of history
   - value: 40+
+    label: years of history
+  - value: "14"
     label: clubs & societies
 highlights_title: Why choose our school?
 highlights:

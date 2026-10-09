@@ -5,7 +5,7 @@ description: "Официальный сайт общеобразовательн
 hero_title: Знания, забота и будущее — в одной школе
 hero_subtitle: Мы создаём дружелюбную среду, которая пробуждает любопытство
   каждого ученика, придаёт уверенность и готовит к жизни.
-hero_image: /uploads/img_0590.jpg
+hero_image: ""
 hero_primary:
   label: О поступлении
   link: admissions
@@ -13,13 +13,13 @@ hero_secondary:
   label: Познакомиться со школой
   link: about
 stats:
-  - value: 1200+
+  - value: "865"
     label: учеников
-  - value: "85"
+  - value: "41"
     label: учителей
-  - value: 60+
-    label: лет истории
   - value: 40+
+    label: лет истории
+  - value: "14"
     label: кружков и клубов
 highlights_title: Почему именно наша школа?
 highlights:

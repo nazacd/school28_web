@@ -5,7 +5,7 @@ description: "28-sonli umumiy oʻrta taʼlim maktabining rasmiy sayti: qabul,
 hero_title: Bilim, gʻamxoʻrlik va kelajak — bir maktabda
 hero_subtitle: Biz har bir oʻquvchining qiziqishini uygʻotadigan, oʻziga ishonch
   beradigan va hayotga tayyorlaydigan doʻstona muhit yaratamiz.
-hero_image: /uploads/img_0590.jpg
+hero_image: ""
 hero_primary:
   label: Qabul haqida
   link: admissions
@@ -13,11 +13,11 @@ hero_secondary:
   label: Maktab bilan tanishing
   link: about
 stats:
-  - value: "850"
+  - value: "865"
     label: oʻquvchi
-  - value: "72"
+  - value: "41"
     label: oʻqituvchi
-  - value: "40"
+  - value: 40+
     label: yillik tarix
   - value: "14"
     label: toʻgarak va klub
