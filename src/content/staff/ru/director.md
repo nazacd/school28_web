@@ -1,9 +1,9 @@
 ---
-name: "Имя Фамилия"
-role: "Директор школы"
+name: Имя Фамилия
+role: Директор школы
 group: leadership
 order: 1
-photo: ""
+photo: /uploads/img_0585.jpg
 email: ""
 ---
 

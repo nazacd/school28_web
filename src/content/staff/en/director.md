@@ -1,9 +1,9 @@
 ---
-name: "Full Name"
-role: "Head of School"
+name: Full Name
+role: Head of School
 group: leadership
 order: 1
-photo: ""
+photo: /uploads/img_0585.jpg
 email: ""
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: "Ism Familiya"
-role: "Maktab direktori"
+name: Ism Familiya
+role: Maktab direktori
 group: leadership
 order: 1
-photo: ""
+photo: /uploads/img_0585.jpg
 email: ""
 ---
 
