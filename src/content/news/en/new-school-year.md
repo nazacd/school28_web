@@ -1,17 +1,16 @@
 ---
-title: "A new school year has begun"
-description: "We started the 2026–2027 school year with a Knowledge Day celebration."
+title: A new school year has begun
+description: We started the 2026–2027 school year with a Knowledge Day celebration.
 date: 2026-09-02
-cover: ""
+cover: /uploads/photo_2026-10-09_14-16-35.jpg
 draft: false
 ---
+Today, School No. 28 held a solemn "First Bell" ceremony dedicated to the start of the 2026–2027 academic year.
 
-The new school year began with a festive ceremony. Our first-graders heard the school bell for the very first time.
+🎉 The event was opened by the chairperson of the "Utkir" mahalla, Sh. Goziyev, who delivered the congratulatory message of the President of the Republic of Uzbekistan, Sh. Mirziyoyev, on the occasion of the new school year to students, teachers, and parents.
 
-*Placeholder text — replace it with a real news story.*
+📚 Additionally, school principal A. Baysalova took the stage to warmly congratulate all students on the new academic year. She wished them good luck, great success, and high achievements in the 2026–2027 school year, expressing confidence in their ability to reach new heights.
 
-## The programme
+🎶 Throughout the festive event, songs, traditional dances, and artistic performances presented by the students filled the audience with a joyous atmosphere.
 
-- Opening assembly
-- Performances by graduates and first-graders
-- The first lesson
+🌟 Happy new school year! We wish all our students immense success in their pursuit of knowledge, and we wish teachers triumph in their honorable and responsible work!

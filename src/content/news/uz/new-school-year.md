@@ -1,17 +1,24 @@
 ---
-title: "Yangi oʻquv yili boshlandi"
-description: "Bilimlar kuni bayrami bilan 2026–2027 oʻquv yilini boshladik."
+title: Yangi oʻquv yili boshlandi
+description: Bilimlar kuni bayrami bilan 2026–2027 oʻquv yilini boshladik.
 date: 2026-09-02
-cover: ""
+cover: /uploads/photo_2026-10-09_14-16-35.jpg
 draft: false
 ---
+Bugun 28-maktabda 2026–2027-o‘quv yilining boshlanishi munosabati bilan “Birinchi qo‘ng‘iroq” tadbiri tantanali tarzda tashkil etildi.
 
-Maktabimizda yangi oʻquv yili tantanali marosim bilan boshlandi. Birinchi sinf oʻquvchilari ilk bor maktab qoʻngʻirogʻini eshitishdi.
 
-*Vaqtinchalik matn — haqiqiy yangilik bilan almashtiring.*
 
-## Bayram dasturi
+🎉 Tadbirni O‘tkir mahalla raisi Sh. G‘oziyev O‘zbekiston Respublikasi Prezidenti Sh. Mirziyoyevning yangi o‘quv yili munosabati bilan yo‘llagan tabrigini o‘quvchilar, ustozlar va ota-onalarga yetkazish bilan ochib berdi.
 
-- Tantanali saf
-- Bitiruvchilar va birinchi sinflar chiqishlari
-- Birinchi dars
+
+
+📚 Shuningdek, maktab direktori A. Baysalova so‘zga chiqib, barcha o‘quvchilarni yangi o‘quv yili bilan samimiy tabrikladi. O‘quvchilarga 2026–2027-o‘quv yilida omad, ulkan muvaffaqiyatlar, yuqori natijalar tilab, yangi marralarni zabt etishlariga ishonch bildirdi.
+
+
+
+🎶 Bayramona tadbir davomida o‘quvchilar tomonidan ijro etilgan kuy-qo‘shiqlar, dilbar raqslar va badiiy chiqishlar yig‘ilganlarga ko‘tarinki kayfiyat ulashdi.
+
+
+
+🌟 Yangi o‘quv yili muborak bo‘lsin! Barcha o‘quvchilarimizga bilim olish yo‘lida ulkan zafarlar, ustozlarimizga esa sharafli va mas’uliyatli faoliyatlarida muvaffaqiyatlar tilaymiz!
