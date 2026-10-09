@@ -1,9 +1,9 @@
 ---
-name: "Full Name"
-role: "Primary Teacher"
+name: "Tilavbayeva Dilfuza "
+role: Primary Teacher
 group: teachers
 order: 12
-photo: ""
+photo: /uploads/img_0596.jpg
 email: ""
 ---
 

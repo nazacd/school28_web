@@ -1,9 +1,9 @@
 ---
-name: "Ism Familiya"
-role: "Boshlangʻich sinf oʻqituvchisi"
+name: Tilavbayeva Dilfuza
+role: Boshlangʻich sinf oʻqituvchisi
 group: teachers
 order: 12
-photo: ""
+photo: /uploads/img_0596.jpg
 email: ""
 ---
 

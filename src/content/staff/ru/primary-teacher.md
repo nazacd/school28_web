@@ -1,9 +1,9 @@
 ---
-name: "Имя Фамилия"
-role: "Учитель начальных классов"
+name: Тилабаева Дилфуза
+role: Учитель начальных классов
 group: teachers
 order: 12
-photo: ""
+photo: /uploads/img_0596.jpg
 email: ""
 ---
 
