@@ -6,7 +6,4 @@ order: 3
 photo: /uploads/img_0606.jpg
 email: ""
 ---
-
 Tarbiyaviy ishlar, toʻgaraklar va bolalar himoyasi uchun masʼul.
-
-*Vaqtinchalik matn.*
