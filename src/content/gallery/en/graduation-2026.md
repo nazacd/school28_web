@@ -15,7 +15,7 @@ description: >-
 
 
   🌟 Happy new school year! We wish all our students immense success in their pursuit of knowledge, and we wish teachers triumph in their honorable and responsible work!
-date: 2026-05-25
+date: 2026-10-02
 cover: /uploads/photo_2026-10-09_14-18-51.jpg
 images: []
 placeholder_count: 6

@@ -15,7 +15,7 @@ description: >
 
 
   🌟 Yangi o‘quv yili muborak bo‘lsin! Barcha o‘quvchilarimizga bilim olish yo‘lida ulkan zafarlar, ustozlarimizga esa sharafli va mas’uliyatli faoliyatlarida muvaffaqiyatlar tilaymiz!
-date: 2026-05-25
+date: 2026-10-02
 cover: /uploads/photo_2026-10-09_14-18-51.jpg
 images:
   - src: /uploads/photo_2026-10-09_14-16-20.jpg
