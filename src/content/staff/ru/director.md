@@ -1,5 +1,5 @@
 ---
-name: Имя Фамилия
+name: Байсалова Айжан Алибековна
 role: Директор школы
 group: leadership
 order: 1

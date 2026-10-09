@@ -1,5 +1,5 @@
 ---
-name: Ism Familiya
+name: Baysalova Ayjan Alibekovna
 role: Maktab direktori
 group: leadership
 order: 1

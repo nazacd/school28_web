@@ -1,5 +1,5 @@
 ---
-name: Full Name
+name: Baysalova Ayjan Alibekovna
 role: Head of School
 group: leadership
 order: 1
