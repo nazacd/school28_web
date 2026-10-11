@@ -8,6 +8,11 @@ import { z } from 'astro/zod';
 // Empty image fields are fine: the site shows a styled placeholder instead.
 
 const image = z.string().trim().optional().nullable().transform((v) => v || undefined);
+// Text that editors translate. A translation left empty is stored as "" and filled in from the
+// Uzbek version at build time (src/lib/content.ts), so one missing translation can't break the site.
+// Required Uzbek fields are checked there too, with a clear error naming the file.
+const text = z.string().nullish().transform((v) => v?.trim() ?? '');
+const link = z.object({ label: text, link: text });
 // The editor saves an empty date as null or "": treat both as "no date".
 const optionalDate = z.preprocess((v) => (v === null || v === '' ? undefined : v), z.coerce.date().optional());
 
@@ -18,34 +23,35 @@ const md = (dir: string) =>
 const home = defineCollection({
   loader: md('home'),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    hero_title: z.string(),
-    hero_subtitle: z.string(),
+    title: text,
+    description: text,
+    hero_title: text,
+    hero_subtitle: text,
     hero_image: image,
-    hero_primary: z.object({ label: z.string(), link: z.string() }),
-    hero_secondary: z.object({ label: z.string(), link: z.string() }).optional(),
-    stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
-    highlights_title: z.string(),
+    hero_primary: link.default({ label: '', link: '' }),
+    hero_secondary: link.optional().nullable().transform((v) => (v?.label && v.link ? v : undefined)),
+    stats: z.array(z.object({ value: text, label: text })).nullish().transform((v) => v ?? []),
+    highlights_title: text,
     highlights: z
-      .array(z.object({ title: z.string(), text: z.string(), link: z.string().optional() }))
-      .default([]),
-    welcome_title: z.string(),
-    welcome_author: z.string(),
-    welcome_role: z.string(),
+      .array(z.object({ title: text, text: text, link: z.string().nullish().transform((v) => v || undefined) }))
+      .nullish()
+      .transform((v) => v ?? []),
+    welcome_title: text,
+    welcome_author: text,
+    welcome_role: text,
     welcome_image: image,
-    cta_title: z.string(),
-    cta_text: z.string(),
-    cta_label: z.string(),
-    cta_link: z.string(),
+    cta_title: text,
+    cta_text: text,
+    cta_label: text,
+    cta_link: text,
   }),
 });
 
 const pages = defineCollection({
   loader: md('pages'),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
+    title: text,
+    description: text,
     hero_image: image,
     updated: optionalDate,
   }),
@@ -54,8 +60,8 @@ const pages = defineCollection({
 const news = defineCollection({
   loader: md('news'),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
+    title: text,
+    description: text,
     date: z.coerce.date(),
     cover: image,
     draft: z.boolean().default(false),
@@ -65,11 +71,11 @@ const news = defineCollection({
 const events = defineCollection({
   loader: md('events'),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
+    title: text,
+    description: text,
     date: z.coerce.date(),
     end_date: optionalDate,
-    location: z.string(),
+    location: text,
     cover: image,
     draft: z.boolean().default(false),
   }),
@@ -78,8 +84,8 @@ const events = defineCollection({
 const staff = defineCollection({
   loader: md('staff'),
   schema: z.object({
-    name: z.string(),
-    role: z.string(),
+    name: text,
+    role: text,
     group: z.enum(['leadership', 'teachers', 'support']),
     order: z.number().default(100),
     photo: image,
@@ -90,8 +96,8 @@ const staff = defineCollection({
 const gallery = defineCollection({
   loader: md('gallery'),
   schema: z.object({
-    title: z.string(),
-    description: z.string().optional().default(''),
+    title: text,
+    description: text,
     date: z.coerce.date(),
     cover: image,
     images: z
