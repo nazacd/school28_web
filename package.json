@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "start": "node ./dist/server/entry.mjs",
     "check": "astro check",
-    "cms": "decap-server"
+    "cms": "decap-server",
+    "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.6",
@@ -22,6 +23,7 @@
     "@astrojs/check": "^0.9.10",
     "@types/nodemailer": "^8.0.2",
     "decap-server": "^3.11.3",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   },
   "engines": {

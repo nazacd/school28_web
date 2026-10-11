@@ -1,5 +1,6 @@
 ---
 name: Abdirasulov Meirbek
+role: History Teacher
 group: teachers
 order: 12
 photo: /uploads/img_0578.jpg

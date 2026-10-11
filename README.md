@@ -82,7 +82,10 @@ Notes:
   Empty photo fields show a neat branded placeholder.
 - **Logo:** *Settings → School details → Logo*. Until a logo is uploaded, a "28" badge is shown.
 - **Draft:** news and events have a *Draft* switch that hides them from the site.
-- Upload photos at a reasonable size (about 1600 px wide, JPG/WebP, under 500 KB).
+- Upload photos at a reasonable size (JPG/WebP, ideally under 1 MB). Photos straight from a camera or phone
+  (5–10 MB) slow the site down. To shrink everything in `public/uploads` that is over 1 MB or larger than 2560 px,
+  run `npm run optimize-images` and commit the result. It keeps file names (so pages don't change), fixes rotation,
+  and removes hidden camera data such as GPS location.
 
 #### Editing locally without GitHub
 

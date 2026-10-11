@@ -10,19 +10,39 @@ export type Localized<C extends LocalizedCollection> = CollectionEntry<C> & {
   fallback: boolean;
 };
 
-// Photos are usually uploaded once, in the default language. Translations
-// without their own photo reuse the default-language one.
-const MEDIA_FIELDS = ['cover', 'photo', 'hero_image', 'welcome_image', 'images'];
+// Fields that must be filled in the default language (Uzbek). Translations may leave any field
+// empty: it is then filled from the Uzbek version (photos are usually uploaded only once, too).
+const REQUIRED: Record<LocalizedCollection, string[]> = {
+  home: ['title', 'description', 'hero_title', 'hero_subtitle', 'hero_primary.label', 'hero_primary.link', 'highlights_title', 'welcome_title', 'cta_title', 'cta_label', 'cta_link'],
+  pages: ['title', 'description'],
+  news: ['title', 'description'],
+  events: ['title', 'description', 'location'],
+  staff: ['name', 'role'],
+  gallery: ['title'],
+};
 
-function withSharedMedia(data: Record<string, unknown>, base?: Record<string, unknown>) {
-  if (!base) return data;
-  const merged = { ...data };
-  for (const key of MEDIA_FIELDS) {
+const isEmpty = (v: unknown) => v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0);
+const isPlainObject = (v: unknown): v is Record<string, unknown> =>
+  typeof v === 'object' && v !== null && !Array.isArray(v) && !(v instanceof Date);
+
+/** Fills every empty field of a translation from the default-language version. */
+function fillEmpty(data: Record<string, unknown>, base: Record<string, unknown>): Record<string, unknown> {
+  const merged: Record<string, unknown> = { ...data };
+  for (const [key, baseValue] of Object.entries(base)) {
     const value = merged[key];
-    const empty = value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0);
-    if (empty && key in base) merged[key] = base[key];
+    if (isEmpty(value)) merged[key] = baseValue;
+    else if (isPlainObject(value) && isPlainObject(baseValue)) merged[key] = fillEmpty(value, baseValue);
   }
   return merged;
+}
+
+function checkRequired(collection: LocalizedCollection, slug: string, data: Record<string, unknown>) {
+  const missing = REQUIRED[collection].filter((path) =>
+    isEmpty(path.split('.').reduce<unknown>((v, k) => (isPlainObject(v) ? v[k] : undefined), data)),
+  );
+  if (missing.length) {
+    throw new Error(`src/content/${collection}/${defaultLocale}/${slug}.md: required field(s) empty in the default language: ${missing.join(', ')}`);
+  }
 }
 
 function split(id: string) {
@@ -38,19 +58,24 @@ function split(id: string) {
 export async function getLocalized<C extends LocalizedCollection>(collection: C, lang: Locale): Promise<Localized<C>[]> {
   const all = (await getCollection(collection)) as CollectionEntry<C>[];
   const defaults = new Map(all.filter((e) => split(e.id).lang === defaultLocale).map((e) => [split(e.id).slug, e]));
+  for (const [slug, entry] of defaults) checkRequired(collection, slug, entry.data as Record<string, unknown>);
+
   const bySlug = new Map<string, Localized<C>>();
   for (const entry of all) {
     const { lang: entryLang, slug } = split(entry.id);
-    if (entryLang === lang) {
-      const data = withSharedMedia(entry.data as Record<string, unknown>, defaults.get(slug)?.data as Record<string, unknown> | undefined);
-      bySlug.set(slug, { ...entry, data, slug, lang, fallback: false } as Localized<C>);
+    if (entryLang !== lang) continue;
+    const base = defaults.get(slug);
+    if (!base || entryLang === defaultLocale) {
+      bySlug.set(slug, { ...entry, slug, lang, fallback: false });
+      continue;
     }
+    const data = fillEmpty(entry.data as Record<string, unknown>, base.data as Record<string, unknown>);
+    // An untranslated body shows the default-language text.
+    const body = entry.body?.trim() ? {} : { body: base.body, rendered: base.rendered };
+    bySlug.set(slug, { ...entry, ...body, data, slug, lang, fallback: false } as Localized<C>);
   }
-  for (const entry of all) {
-    const { lang: entryLang, slug } = split(entry.id);
-    if (entryLang === defaultLocale && !bySlug.has(slug)) {
-      bySlug.set(slug, { ...entry, slug, lang: defaultLocale, fallback: true });
-    }
+  for (const [slug, entry] of defaults) {
+    if (!bySlug.has(slug)) bySlug.set(slug, { ...entry, slug, lang: defaultLocale, fallback: true });
   }
   return [...bySlug.values()].filter((e) => !('draft' in e.data && e.data.draft));
 }
