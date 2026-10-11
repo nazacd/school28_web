@@ -110,6 +110,9 @@ const groupActive = (paths: string[]) => paths.some(isActive);
   if (header && toggle) {
     const label = toggle.querySelector('.sr-only')!;
     const setOpen = (open: boolean) => {
+      // The header is pinned (position: fixed) while the menu is open; keep its space
+      // so the page underneath doesn't jump.
+      document.body.style.paddingTop = open && window.innerWidth < 1080 ? `${header.offsetHeight}px` : '';
       header.classList.toggle('is-open', open);
       document.documentElement.classList.toggle('menu-open', open);
       toggle.setAttribute('aria-expanded', String(open));
@@ -341,7 +344,8 @@ const groupActive = (paths: string[]) => paths.some(isActive);
       box-shadow: none;
       background: none;
       opacity: 1;
-      visibility: visible;
+      /* inherit, not visible: a visible child would stay tappable while the closed menu is hidden */
+      visibility: inherit;
       transform: none;
     }
     .nav__dropdown::before {
@@ -376,5 +380,17 @@ const groupActive = (paths: string[]) => paths.some(isActive);
   }
   :global(html.menu-open) {
     overflow: hidden;
+  }
+  @media (max-width: 1079px) {
+    /* Locking page scroll stops position: sticky from working, so pin the header
+       to the viewport while the menu is open (otherwise it scrolls away). */
+    :global(html.menu-open) .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      background: var(--bg);
+    }
+    .nav {
+      overscroll-behavior: contain;
+    }
   }
 </style>
