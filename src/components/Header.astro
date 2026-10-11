@@ -109,7 +109,14 @@ const groupActive = (paths: string[]) => paths.some(isActive);
 
   if (header && toggle) {
     const label = toggle.querySelector('.sr-only')!;
+    const nav = header.querySelector<HTMLElement>('#site-nav')!;
+    const desktop = window.matchMedia('(min-width: 1080px)');
+    // On phones the closed menu is inert: nothing inside can be tapped or focused.
+    const syncInert = () => {
+      nav.inert = !desktop.matches && !header.classList.contains('is-open');
+    };
     const setOpen = (open: boolean) => {
+      if (!open && nav.contains(document.activeElement)) (document.activeElement as HTMLElement).blur();
       // The header is pinned (position: fixed) while the menu is open; keep its space
       // so the page underneath doesn't jump.
       document.body.style.paddingTop = open && window.innerWidth < 1080 ? `${header.offsetHeight}px` : '';
@@ -117,7 +124,9 @@ const groupActive = (paths: string[]) => paths.some(isActive);
       document.documentElement.classList.toggle('menu-open', open);
       toggle.setAttribute('aria-expanded', String(open));
       label.textContent = open ? toggle.dataset.labelClose! : toggle.dataset.labelOpen!;
+      syncInert();
     };
+    syncInert();
     toggle.addEventListener('click', () => setOpen(!header.classList.contains('is-open')));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && header.classList.contains('is-open')) {
@@ -125,7 +134,7 @@ const groupActive = (paths: string[]) => paths.some(isActive);
         toggle.focus();
       }
     });
-    window.matchMedia('(min-width: 1080px)').addEventListener('change', (e) => e.matches && setOpen(false));
+    desktop.addEventListener('change', () => setOpen(false));
   }
 </script>
 
@@ -226,11 +235,15 @@ const groupActive = (paths: string[]) => paths.some(isActive);
     inset: -10px 0 auto;
     height: 10px;
   }
-  .nav__item:hover .nav__dropdown,
-  .nav__item:focus-within .nav__dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
+  /* Desktop only: on phones a tapped item can stay ":hover"/focused after the menu closes,
+     which would make its hidden sub-links tappable. */
+  @media (min-width: 1080px) {
+    .nav__item:hover .nav__dropdown,
+    .nav__item:focus-within .nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
   }
   .nav__sublink {
     display: block;
@@ -313,10 +326,14 @@ const groupActive = (paths: string[]) => paths.some(isActive);
     .site-header.is-scrolled .nav {
       inset-block-start: 64px;
     }
+    .nav {
+      pointer-events: none; /* closed panel never receives taps */
+    }
     .is-open .nav {
       opacity: 1;
       visibility: visible;
       transform: none;
+      pointer-events: auto;
     }
     .nav__list {
       flex-direction: column;
@@ -350,10 +367,6 @@ const groupActive = (paths: string[]) => paths.some(isActive);
     }
     .nav__dropdown::before {
       display: none;
-    }
-    .nav__item:hover .nav__dropdown,
-    .nav__item:focus-within .nav__dropdown {
-      transform: none;
     }
     .nav__sublink {
       padding: 10px 12px;
