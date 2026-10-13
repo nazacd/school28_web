@@ -2,7 +2,7 @@
 name: Убайдуллаева Висола Каримжон кизи
 role: Советник директора по воспитательной работе
 group: leadership
-order: 3
+order: 4
 photo: /uploads/img_0606.jpg
 email: ""
 ---
