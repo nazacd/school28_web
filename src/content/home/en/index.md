@@ -15,11 +15,11 @@ hero_secondary:
 stats:
   - value: "865"
     label: students
-  - value: "41"
+  - value: "59"
     label: teachers
   - value: 40+
     label: years of history
-  - value: "14"
+  - value: "60"
     label: clubs & societies
 highlights_title: Why choose our school?
 highlights:

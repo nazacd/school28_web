@@ -15,11 +15,11 @@ hero_secondary:
 stats:
   - value: "865"
     label: учеников
-  - value: "41"
+  - value: "59"
     label: учителей
   - value: 40+
     label: лет истории
-  - value: "14"
+  - value: "60"
     label: кружков и клубов
 highlights_title: Почему именно наша школа?
 highlights:

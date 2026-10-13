@@ -15,11 +15,11 @@ hero_secondary:
 stats:
   - value: "865"
     label: oʻquvchi
-  - value: "41"
-    label: oʻqituvchi
+  - value: "59"
+    label: Oʻqituvchi
   - value: 40+
     label: yillik tarix
-  - value: "14"
+  - value: "60"
     label: toʻgarak va klub
 highlights_title: Nega aynan bizning maktab?
 highlights:
@@ -34,7 +34,7 @@ highlights:
     text: Oʻzbek, rus va ingliz tillarini chuqur oʻrganish imkoniyati.
     link: academics
   - title: Toʻgaraklar va sport
-    text: Robototexnika, sanʼat, musiqa, futbol va boshqa koʻplab yoʻnalishlar.
+    text: Robototexnika, sanʼat, musiqa, IT, futbol va boshqa koʻplab yoʻnalishlar.
     link: gallery
   - title: Ota-onalar bilan hamkorlik
     text: Ochiq muloqot va muntazam uchrashuvlar orqali birgalikda rivojlanamiz.
