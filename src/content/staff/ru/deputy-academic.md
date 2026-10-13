@@ -2,7 +2,7 @@
 name: Алимбаева Айнур Сахибовна
 role: Заместитель директора по духовно-просветительской работе
 group: leadership
-order: 2
+order: 3
 photo: /uploads/img_0556.jpg
 email: ""
 ---
