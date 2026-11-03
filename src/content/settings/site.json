@@ -13,16 +13,16 @@
     "en": "School No. 28"
   },
   "short_name": "28",
-  "phone": "+998 77 250 08 66",
+  "phone": "+998 99 340 51 56",
   "tagline": {
     "uz": "Umumiy oʻrta taʼlim maktabi",
     "ru": "Общеобразовательная школа",
     "en": "General secondary school"
   },
   "hours": {
-    "uz": "Dushanba – Shanba, 08:00 – 14:00",
-    "ru": "Понедельник – суббота, 08:00 – 14:00",
-    "en": "Monday – Saturday, 08:00 – 14:00"
+    "uz": "Dushanba – Shanba, 08:00 – 17:00",
+    "ru": "Понедельник – суббота, 08:00 – 17:00",
+    "en": "Monday – Saturday, 08:00 – 17:00"
   },
   "og_image": "/uploads/photo_2026-10-13_13-13-29.jpg",
   "address": {
@@ -31,6 +31,6 @@
     "en": "217 Utkir Street, Utkir Citizens' Assembly Mahalla Qibray District, Tashkent Region"
   },
   "map_embed": "",
-  "email": "dilshodmiraxmedov13@gmail.com",
+  "email": "visolakarimovna@gmail.com",
   "map_link": ""
 }
