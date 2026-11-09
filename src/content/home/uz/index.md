@@ -1,7 +1,6 @@
 ---
-title: 28-sonli maktab
-description: "28-sonli umumiy oʻrta taʼlim maktabining rasmiy sayti: qabul,
-  taʼlim, yangiliklar va tadbirlar."
+title: 28-sonli maktab — Qibray tumani, Toshkent viloyati
+description: "Qibray tumanidagi 28-sonli umumiy oʻrta taʼlim maktabining rasmiy sayti: qabul, taʼlim, oʻqituvchilar, yangiliklar va tadbirlar."
 hero_title: Bilim, gʻamxoʻrlik va kelajak — bir maktabda
 hero_subtitle: Biz har bir oʻquvchining qiziqishini uygʻotadigan, oʻziga ishonch
   beradigan va hayotga tayyorlaydigan doʻstona muhit yaratamiz.

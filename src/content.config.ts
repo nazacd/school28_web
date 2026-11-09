@@ -126,6 +126,10 @@ const settings = defineCollection({
     map_link: z.string().optional().default(''),
     map_embed: z.string().optional().default(''),
     founded: z.string().optional().default(''),
+    locality: localized.optional(),
+    region: localized.optional(),
+    google_verification: z.string().optional().default(''),
+    yandex_verification: z.string().optional().default(''),
     socials: z
       .object({
         telegram: z.string().optional().default(''),

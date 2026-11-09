@@ -21,7 +21,8 @@ const { lang, title, description, image, type = 'website', noindex = false, sche
 const t = useTranslations(lang);
 const s = await getSettings();
 const siteName = s.name[lang];
-const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+// Titles that already start with the school name (e.g. the home page) are used as they are.
+const fullTitle = title.startsWith(siteName) ? title : `${title} — ${siteName}`;
 const site = Astro.site ?? new URL(Astro.url.origin);
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = image ?? s.og_image;
@@ -34,12 +35,32 @@ const orgSchema = {
   url: new URL(`/${lang}/`, site).href,
   telephone: s.phone,
   email: s.email,
-  address: { '@type': 'PostalAddress', streetAddress: s.address[lang], addressCountry: 'UZ' },
+  alternateName: [...new Set([s.name.uz, s.name.ru, s.name.en, ...(s.locality ? [`${s.name[lang]}, ${s.locality[lang]}`] : [])])].filter(
+    (n) => n !== siteName,
+  ),
+  ...(description ? { description } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: s.address[lang],
+    ...(s.locality ? { addressLocality: s.locality[lang] } : {}),
+    ...(s.region ? { addressRegion: s.region[lang] } : {}),
+    addressCountry: 'UZ',
+  },
+  ...(ogImageUrl ? { image: ogImageUrl } : {}),
   ...(s.logo ? { logo: new URL(s.logo, site).href } : {}),
   ...(s.founded ? { foundingDate: s.founded } : {}),
   sameAs: Object.values(s.socials).filter(Boolean),
 };
-const jsonLd = [orgSchema, ...schema];
+const isHome = Astro.url.pathname.replace(/\/$/, '') === `/${lang}`;
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  alternateName: [s.name.uz, s.name.ru, s.name.en].filter((n) => n !== siteName),
+  url: new URL(`/${lang}/`, site).href,
+  inLanguage: localeNames[lang].hreflang,
+};
+const jsonLd = [orgSchema, ...(isHome ? [websiteSchema] : []), ...schema];
 ---
 
 <!doctype html>
@@ -51,6 +72,8 @@ const jsonLd = [orgSchema, ...schema];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
+    {s.google_verification && <meta name="google-site-verification" content={s.google_verification} />}
+    {s.yandex_verification && <meta name="yandex-verification" content={s.yandex_verification} />}
     {
       locales.map((l) => (
         <link rel="alternate" hreflang={localeNames[l].hreflang} href={new URL(switchLang(Astro.url.pathname, l), site).href} />
@@ -67,7 +90,10 @@ const jsonLd = [orgSchema, ...schema];
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
     <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
 
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#6e011e" />
 
