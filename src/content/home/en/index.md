@@ -1,7 +1,6 @@
 ---
-title: School No. 28
-description: "Official website of General Secondary School No. 28: admissions,
-  academics, news and events."
+title: School No. 28 — Qibray District, Tashkent Region
+description: "Official website of General Secondary School No. 28 in Qibray District, Tashkent Region: admissions, academics, teachers, news and events."
 hero_title: Knowledge, care and a future — in one school
 hero_subtitle: We create a friendly environment that sparks every student’s
   curiosity, builds confidence and prepares them for life.

@@ -32,5 +32,17 @@
   },
   "map_embed": "",
   "email": "visolakarimovna@gmail.com",
-  "map_link": ""
+  "map_link": "",
+  "locality": {
+    "uz": "Qibray tumani",
+    "ru": "Кибрайский район",
+    "en": "Qibray District"
+  },
+  "region": {
+    "uz": "Toshkent viloyati",
+    "ru": "Ташкентская область",
+    "en": "Tashkent Region"
+  },
+  "google_verification": "",
+  "yandex_verification": ""
 }

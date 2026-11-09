@@ -245,6 +245,24 @@ collections:
           - { name: map_link, label: Map link (Google / Yandex Maps), widget: string, required: false }
           - { name: map_embed, label: Map embed URL (iframe src), widget: string, required: false }
           - { name: founded, label: Year founded, widget: string, required: false }
+          - name: locality
+            label: District (for search engines)
+            widget: object
+            required: false
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - name: region
+            label: Region (for search engines)
+            widget: object
+            required: false
+            fields:
+              - { name: uz, label: Oʻzbekcha, widget: string }
+              - { name: ru, label: Русский, widget: string }
+              - { name: en, label: English, widget: string }
+          - { name: google_verification, label: 'Google Search Console code (only the content="..." value)', widget: string, required: false }
+          - { name: yandex_verification, label: 'Yandex Webmaster code (only the content="..." value)', widget: string, required: false }
           - name: socials
             label: Social networks
             widget: object
