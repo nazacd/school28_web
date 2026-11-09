@@ -110,3 +110,15 @@ jobs:
             sleep 3
           done
           echo "Site returned $code" && exit 1
+
+      # Tell Yandex and Bing (IndexNow) which pages exist, so they crawl new and
+      # changed pages without a Yandex Webmaster account. The key file lives in public/.
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        run: |
+          urls=$(curl -fsS https://school28.uz/sitemap-0.xml | grep -o '<loc>[^<]*</loc>' | sed 's/<[^>]*>//g' | jq -R . | jq -sc .)
+          body=$(jq -nc --argjson urls "$urls" '{host:"school28.uz", key:"207afe7ffd8c93f5b939e62001a5ce4d", keyLocation:"https://school28.uz/207afe7ffd8c93f5b939e62001a5ce4d.txt", urlList:$urls}')
+          for endpoint in https://yandex.com/indexnow https://api.indexnow.org/indexnow; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$endpoint" -H 'Content-Type: application/json; charset=utf-8' -d "$body")
+            echo "$endpoint -> HTTP $code"
+          done
