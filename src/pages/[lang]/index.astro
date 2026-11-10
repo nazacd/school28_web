@@ -25,7 +25,10 @@ const news = (await getLocalized('news', lang)).sort(byDateDesc).slice(0, 3);
 // Take a few extra; the browser hides events that finished after the last build.
 const events = (await getLocalized('events', lang)).filter((e) => isUpcoming(e)).sort(byDateAsc).slice(0, 6);
 const albums = (await getLocalized('gallery', lang)).sort(byDateDesc);
-const mosaic = albums.flatMap((a) => (a.data.images.length ? a.data.images : [])).slice(0, 5);
+// Photos without their own description get one from their album, so search engines know what they show.
+const mosaic = albums
+  .flatMap((a) => a.data.images.map((img, i) => ({ src: img.src, alt: img.alt || `${a.data.title} (${i + 1}) — ${settings.name[lang]}` })))
+  .slice(0, 5);
 
 const highlightIcons = ['book', 'heart', 'globe', 'star', 'shield', 'user'] as const;
 const link = (href: string) => (/^(https?:|mailto:|tel:|#)/.test(href) ? href : url(lang, href));
@@ -81,7 +84,7 @@ const link = (href: string) => (/^(https?:|mailto:|tel:|#)/.test(href) ? href : 
           <ul class="stats__list">
             {h.stats.map((s, i) => (
               <li class="stats__item" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
-                <span class="stats__value">{s.value}</span>
+                <span class="stats__value">{s.value}</span>{' '}
                 <span class="stats__label">{s.label}</span>
               </li>
             ))}
