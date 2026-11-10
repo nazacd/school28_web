@@ -1,8 +1,11 @@
 ---
-title: QIBRAY DISTRICT SCHOOL NO. 28 — STUDENT COUNCIL TEAM!
-description: The school-level Student Council election at School No. 28 in
-  Qibray District has successfully concluded.
+title: "КОМАНДА УЧЕНИЧЕСКОГО СОВЕТА ШКОЛЫ № 28 КИБРАЙСКОГО РАЙОНА! "
+description: В школе № 28 Кибрайского района завершился школьный этап выборов в
+  Совет учащихся.
 date: 2026-10-28
 cover: /uploads/photo_2026-11-10_14-02-06.jpg
 placeholder_count: 6
 ---
+Знакомьтесь: лидер нашей школы, его заместитель и семь координаторов по различным направлениям, которые уверенно идут навстречу будущему!
+
+Наша цель — поддерживать инициативы учащихся, воплощать новые идеи в жизнь и привносить позитивные изменения в школьную жизнь!
