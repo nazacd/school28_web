@@ -5,7 +5,7 @@ import PageHero from '@/components/PageHero.astro';
 import Media from '@/components/Media.astro';
 import Icon from '@/components/Icon.astro';
 import { defaultLocale, formatDate, locales, useTranslations, type Locale } from '@/i18n/ui';
-import { getLocalized } from '@/lib/content';
+import { getLocalized, getSettings } from '@/lib/content';
 import { url } from '@/lib/routes';
 
 export async function getStaticPaths() {
@@ -19,6 +19,9 @@ const album = (await getLocalized('gallery', lang)).find((e) => e.slug === Astro
 if (!album) throw new Error(`Album not found: ${Astro.params.slug}`);
 const { Content } = await render(album);
 const { title, description, date, images, placeholder_count } = album.data;
+const siteName = (await getSettings()).name[lang];
+// Photos without their own description get one from the album, so search engines know what they show.
+const altFor = (alt: string | undefined, i: number) => alt || `${title} (${i + 1}) — ${siteName}`;
 ---
 
 <BaseLayout lang={lang} title={title} description={description || t('gallery.description')} image={album.data.cover ?? images[0]?.src}>
@@ -33,8 +36,8 @@ const { title, description, date, images, placeholder_count } = album.data;
           images.length
             ? images.map((img, i) => (
                 <li data-reveal="scale" style={`--reveal-delay: ${(i % 4) * 60}ms`}>
-                  <button type="button" class="photo" data-index={i} data-src={img.src} data-alt={img.alt}>
-                    <Media src={img.src} alt={img.alt} ratio="1 / 1" width={600} height={600} />
+                  <button type="button" class="photo" data-index={i} data-src={img.src} data-alt={altFor(img.alt, i)}>
+                    <Media src={img.src} alt={altFor(img.alt, i)} ratio="1 / 1" width={600} height={600} />
                   </button>
                 </li>
               ))
