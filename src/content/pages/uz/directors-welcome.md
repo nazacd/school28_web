@@ -7,9 +7,9 @@ Hurmatli öquvçilar, ota-onalar va mehmonlar!
 
 28-sonli maktabga xuş kelibsiz! Maktabimizga qiziqiş bildirganingiz uçun rahmat.
 
-> ***Maktabimiz —** nafaqat bilim beriladigan, balki yoş avlodning dunyoqaraşi şakllanadigan, iste’dod va qobiliyatlari yuzaga çiqadigan, ezgu maqsadlar sari intilişlariga zamin yaratiladigan muhim ta’lim maskanidir.*
+> **Maktabimiz —** nafaqat bilim beriladigan, balki yoş avlodning dunyoqaraşi şakllanadigan, iste’dod va qobiliyatlari yuzaga çiqadigan, ezgu maqsadlar sari intilişlariga zamin yaratiladigan muhim ta’lim maskanidir.*
 >
-> ***Bizning asosiy maqsadimiz —** har tomonlama yetuk, mustaqil fikrlaydigan, zamonaviy bilim va könikmalarga ega, Vatanimiz ravnaqi uçun mas’uliyatni his etadigan barkamol avlodni tarbiyalaşdir.*
+> **Bizning asosiy maqsadimiz —** har tomonlama yetuk, mustaqil fikrlaydigan, zamonaviy bilim va könikmalarga ega, Vatanimiz ravnaqi uçun mas’uliyatni his etadigan barkamol avlodni tarbiyalaşdir.*
 >
 > *Uşbu maqsad yölida fidoyi pedagoglarimiz, faol öquvçilarimiz va ta’limga befarq bölmagan ota-onalarimiz bilan hamjihatlikda faoliyat olib bormoqdamiz. Zero, sifatli ta’lim va munosib tarbiya — maktab, oila va jamiyat hamkorligining samarasidir.*
 >
