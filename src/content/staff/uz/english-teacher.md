@@ -1,6 +1,6 @@
 ---
 name: Askarova Iroda
-role: Ingliz tili oʻqituvchisi
+role: Ingliz tili öqituvçisi
 group: teachers
 order: 11
 photo: /uploads/img_0573.jpg
