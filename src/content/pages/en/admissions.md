@@ -1,7 +1,8 @@
 ---
-title: "Admissions"
+title: Admissions
 description: "How to enrol your child: steps, documents and important dates."
 hero_image: ""
+updated: null
 ---
 
 We welcome new students throughout the year, subject to available places.
