@@ -1,8 +1,8 @@
 ---
 name: Abidova Sanobar
-role: Tasviriy sanʼat oʻqituvchisi
+role: Tasviriy sanʼat öqituvçisi
 group: teachers
 order: 4
 photo: /uploads/img_0568.jpg
 ---
-Ushbu lavozim oʻquvchilarga tasviriy sanʼat, rasm chizish asoslari va ijodiy fikrlashni oʻrgatishga qaratilgan. Oʻqituvchi oʻquvchilarning estetik qarashlarini rivojlantiradi va ularga turli badiiy texnikalarni oʻzlashtirishda yordam beradi.
+Uşbu lavozim öquvçilarga tasviriy sanʼat, rasm çiziş asoslari va ijodiy fikrlaşni örgatişga qaratilgan. Öqituvçi öquvçilarning estetik qaraşlarini rivojlantiradi va ularga turli badiiy texnikalarni özlaştirişda yordam beradi.
