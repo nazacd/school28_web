@@ -1,30 +1,28 @@
 ---
-title: "Bolalar himoyasi"
-description: "Har bir bolaning xavfsizligini taʼminlash boʻyicha majburiyatlarimiz va xavotir tugʻilganda nima qilish kerak."
+title: Bolalar himoyasi
+description: Har bir bolaning xavfsizligini taʼminlaş böyiça majburiyatlarimiz
+  va xavotir tuğilganda nima qiliş kerak.
 hero_image: ""
 updated: 2026-09-01
 ---
-
-Har bir bolaning xavfsizligi va farovonligi — bizning eng muhim ustuvorligimiz. Barcha xodimlar va koʻngillilar bolalarni himoya qilish uchun masʼuldir.
+Har bir bolaning xavfsizligi va farovonligi — bizning eng muhim ustuvorligimiz. Barça xodimlar va köngillilar bolalarni himoya qiliş uçun masʼuldir.
 
 ## Tamoyillarimiz
 
-- Har bir bola xavfsiz boʻlish va eshitilish huquqiga ega.
-- Har qanday murojaat jiddiy va maxfiy tarzda koʻrib chiqiladi.
-- Xodimlar bolalar himoyasi boʻyicha muntazam oʻqitiladi.
-- Barcha xodimlar ishga kirishdan oldin tekshiruvdan oʻtadi.
+* Har bir bola xavfsiz böliş va eşitiliş huquqiga ega.
+* Har qanday murojaat jiddiy va maxfiy tarzda körib çiqiladi.
+* Xodimlar bolalar himoyasi böyiça muntazam öqitiladi.
+* Barça xodimlar işga kirişdan oldin tekşiruvdan ötadi.
 
-## Masʼul shaxs
+## Masʼul şaxs
 
-**Ism Familiya**, direktor oʻrinbosari\
-Telefon: +998 00 000 00 00
+**Ubaydullayeva Visola**, maktab maslahatçisi\
+Telefon: +998 99 340 51 56
 
 ## Agar sizni biror narsa xavotirga solsa
 
-Agar bolaning xavfsizligi haqida xavotirda boʻlsangiz, imkon qadar tezroq masʼul shaxs yoki istalgan maktab xodimiga murojaat qiling. Favqulodda vaziyatda darhol tegishli xizmatlarga qoʻngʻiroq qiling.
+Agar bolaning xavfsizligi haqida xavotirda bölsangiz, imkon qadar tezroq masʼul şaxs yoki istalgan maktab xodimiga murojaat qiling. Favqulodda vaziyatda darhol tegişli xizmatlarga qönğiroq qiling.
 
 ## Internetda xavfsizlik
 
-Biz oʻquvchilarga internetda xavfsiz boʻlishni oʻrgatamiz va ota-onalardan farzandlari bilan internetdan masʼuliyatli foydalanish haqida suhbatlashishlarini soʻraymiz.
-
-*Bu namuna. Uni maktabingizning tasdiqlangan siyosati bilan almashtiring.*
+Biz öquvçilarga internetda xavfsiz bölişni örgatamiz va ota-onalardan farzandlari bilan internetdan masʼuliyatli foydalaniş haqida suhbatlaşişlarini söraymiz.
