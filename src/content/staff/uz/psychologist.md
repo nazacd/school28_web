@@ -1,5 +1,5 @@
 ---
-name: Djumayeva Lenura
+name: Djumabayeva Lenura
 role: Maktab psixologi
 group: support
 order: 20

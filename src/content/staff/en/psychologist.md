@@ -1,5 +1,5 @@
 ---
-name: Djumayeva Lenura
+name: Djumabayeva Lenura
 role: School Psychologist
 group: support
 order: 20
