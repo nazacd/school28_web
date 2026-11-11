@@ -1,7 +1,8 @@
 ---
-title: "Academics"
-description: "Our curriculum, subjects and learning approach from primary to senior grades."
+title: Academics
+description: Our curriculum, subjects and learning approach from primary to senior grades.
 hero_image: ""
+updated: null
 ---
 
 Our curriculum follows the national education standards and is enriched with languages, STEM and the arts.
