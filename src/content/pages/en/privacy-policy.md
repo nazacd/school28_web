@@ -1,16 +1,15 @@
 ---
-title: "Privacy policy"
-description: "How we collect, use and protect personal information on this website."
+title: Privacy policy
+description: How we collect, use and protect personal information on this website.
 hero_image: ""
 updated: 2026-09-01
 ---
-
 This policy explains what personal information we collect through this website and how we use it.
 
 ## Information we collect
 
-- **Contact form:** your name, email, phone number (optional) and message.
-- **Technical data:** basic server logs (IP address, browser type) for security.
+* **Contact form:** your name, email, phone number (optional) and message.
+* **Technical data:** basic server logs (IP address, browser type) for security.
 
 We do not use advertising or tracking cookies.
 
@@ -30,4 +29,4 @@ You may ask us to see, correct or delete the personal information we hold about 
 
 We may update this policy from time to time. The date of the last update is shown below.
 
-*Template text. Please review it with the school administration before publishing.*
+*11.11.2026*

@@ -1,33 +1,33 @@
 ---
-title: "Maxfiylik siyosati"
-description: "Ushbu saytda shaxsiy maʼlumotlarni qanday yigʻishimiz, foydalanishimiz va himoya qilishimiz."
+title: Maxfiylik siyosati
+description: Uşbu saytda şaxsiy maʼlumotlarni qanday yiğişimiz, foydalanişimiz
+  va himoya qilişimiz.
 hero_image: ""
 updated: 2026-09-01
 ---
+Uşbu siyosat sayt orqali qanday şaxsiy maʼlumotlarni yiğişimiz va ulardan qanday foydalanişimizni tuşuntiradi.
 
-Ushbu siyosat sayt orqali qanday shaxsiy maʼlumotlarni yigʻishimiz va ulardan qanday foydalanishimizni tushuntiradi.
+## Qanday maʼlumotlarni yiğamiz
 
-## Qanday maʼlumotlarni yigʻamiz
-
-- **Aloqa shakli:** ismingiz, elektron pochtangiz, telefon raqamingiz (ixtiyoriy) va xabaringiz.
-- **Texnik maʼlumotlar:** xavfsizlik uchun asosiy server jurnallari (IP-manzil, brauzer turi).
+* **Aloqa şakli:** ismingiz, elektron poçtangiz, telefon raqamingiz (ixtiyoriy) va xabaringiz.
+* **Texnik maʼlumotlar:** xavfsizlik uçun asosiy server jurnallari (IP-manzil, brauzer turi).
 
 Biz reklama yoki kuzatuv cookie-fayllaridan foydalanmaymiz.
 
 ## Maʼlumotlardan qanday foydalanamiz
 
-Yuborgan maʼlumotlaringizdan faqat soʻrovingizga javob berish uchun foydalanamiz. Qonunda nazarda tutilgan hollardan tashqari, ularni sotmaymiz va uchinchi shaxslarga bermaymiz.
+Yuborgan maʼlumotlaringizdan faqat sörovingizga javob beriş uçun foydalanamiz. Qonunda nazarda tutilgan hollardan taşqari, ularni sotmaymiz va uçinçi şaxslarga bermaymiz.
 
-## Saqlash muddati
+## Saqlaş muddati
 
-Xabarlar faqat javob berish va hisob yuritish uchun zarur boʻlgan muddatda saqlanadi, soʻngra oʻchiriladi.
+Xabarlar faqat javob beriş va hisob yuritiş uçun zarur bölgan muddatda saqlanadi, söngra öçiriladi.
 
 ## Sizning huquqlaringiz
 
-Siz oʻzingiz haqingizdagi maʼlumotlarni koʻrish, tuzatish yoki oʻchirishni soʻrashingiz mumkin. [Aloqa sahifasi](/uz/contact/) orqali biz bilan bogʻlaning.
+Siz özingiz haqingizdagi maʼlumotlarni köriş, tuzatiş yoki öçirişni söraşingiz mumkin. [Aloqa sahifasi](/uz/contact/) orqali biz bilan boğlaning.
 
-## Siyosatga oʻzgartirishlar
+## Siyosatga özgartirişlar
 
-Biz ushbu siyosatni vaqti-vaqti bilan yangilashimiz mumkin. Oxirgi yangilanish sanasi quyida koʻrsatilgan.
+Biz uşbu siyosatni vaqti-vaqti bilan yangilaşimiz mumkin. Oxirgi yangilaniş sanasi quyida körsatilgan.
 
-*Namuna matn. Iltimos, eʼlon qilishdan oldin maktab maʼmuriyati bilan kelishib oling.*
+11.11.2026
