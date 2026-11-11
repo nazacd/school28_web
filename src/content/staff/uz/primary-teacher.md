@@ -1,9 +1,9 @@
 ---
 name: Tilavbayeva Dilfuza
-role: Boshlangʻich sinf oʻqituvchisi
+role: Boşlanğiç sinf öqituvçisi
 group: teachers
 order: 12
 photo: /uploads/img_0596.jpg
 email: ""
 ---
-Kichik yoshdagi oʻquvchilar bilan ishlashni yaxshi koʻradi.
+Kiçik yoşdagi öquvçilar bilan işlaşni yaxşi köradi.
