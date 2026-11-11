@@ -1,23 +1,23 @@
 ---
-title: Boʻsh ish oʻrinlari
-description: Jamoamizga qoʻshiling. Boʻsh ish oʻrinlari va ariza topshirish tartibi.
+title: Böş iş örinlari
+description: Jamoamizga qöşiling. Böş iş örinlari va ariza topşiriş tartibi.
 hero_image: ""
 ---
-Biz bolalar hayotini yaxshi tomonga oʻzgartirishni istagan isteʼdodli va fidoyi insonlarni doimo kutamiz.
+Biz bolalar hayotini yaxşi tomonga özgartirişni istagan isteʼdodli va fidoyi insonlarni doimo kutamiz.
 
-## Nega biz bilan ishlash kerak
+## Nega biz bilan işlaş kerak
 
-* Ahil va qoʻllab-quvvatlovchi jamoa
-* Malaka oshirish va oʻqitish imkoniyatlari
+* Ahil va qöllab-quvvatlovçi jamoa
+* Malaka oşiriş va öqitiş imkoniyatlari
 * Zamonaviy sinfxonalar va resurslar
 * Uzoq yillik anʼanalarga ega barqaror maktab
 
-## Boʻsh ish oʻrinlari
+## Böş iş örinlari
 
-Hozirda bo'sh ish o'rinlari mavjud emas
+Hozirda böş iş örinlari mavjud emas
 
-## Ariza topshirish tartibi
+## Ariza topşiriş tartibi
 
-Rezyume va qisqa xatingizni [aloqa sahifasida](/uz/contact/) koʻrsatilgan maktab elektron pochtasiga yuboring yoki “Ishga joylashish” mavzusini tanlab aloqa shaklidan foydalaning. Saralangan nomzodlar suhbatga taklif qilinadi.
+Rezyume va qisqa xatingizni [aloqa sahifasida](/uz/contact/) körsatilgan maktab elektron poçtasiga yuboring yoki “Işga joylaşiş” mavzusini tanlab aloqa şaklidan foydalaning. Saralangan nomzodlar suhbatga taklif qilinadi.
 
-Barcha nomzodlar [bolalar himoyasi siyosatimizga](/uz/child-protection/) muvofiq tekshiruvdan oʻtadi.
+Barça nomzodlar [bolalar himoyasi siyosatimizga](/uz/child-protection/) muvofiq teksşiruvdan ötadi.
