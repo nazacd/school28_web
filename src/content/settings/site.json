@@ -1,11 +1,18 @@
 {
+  "google_verification": "",
   "founded": "",
+  "locality": {
+    "uz": "Qibray tumani",
+    "ru": "Кибрайский район",
+    "en": "Qibray District"
+  },
   "socials": {
     "telegram": "https://t.me/kelajak_sari_28",
     "instagram": "https://www.instagram.com/28.maktab.maslahatchi?igsi=M2J6anpyeDQxcGh0",
     "facebook": "",
     "youtube": ""
   },
+  "yandex_verification": "",
   "logo": "",
   "name": {
     "uz": "28-sonli maktab",
@@ -15,34 +22,27 @@
   "short_name": "28",
   "phone": "+998 99 340 51 56",
   "tagline": {
-    "uz": "Umumiy oʻrta taʼlim maktabi",
+    "uz": "Umumiy örta taʼlim maktabi",
     "ru": "Общеобразовательная школа",
     "en": "General secondary school"
   },
   "hours": {
-    "uz": "Dushanba – Shanba, 08:00 – 17:00",
+    "uz": "Dushanba – Şanba, 08:00 – 17:00",
     "ru": "Понедельник – суббота, 08:00 – 17:00",
     "en": "Monday – Saturday, 08:00 – 17:00"
   },
   "og_image": "/uploads/photo_2026-10-13_13-13-29.jpg",
+  "region": {
+    "uz": "Toşkent viloyati",
+    "ru": "Ташкентская область",
+    "en": "Tashkent Region"
+  },
   "address": {
-    "uz": "Toshkent viloyati, Qibray tumani, “Oʻtkir” MFY, Oʻtkir koʻchasi, 217-uy",
+    "uz": "Toşkent viloyati, Qibray tumani, “Ötkir” MFY, Ötkir köçasi, 217-uy",
     "ru": "Ташкентская область, Кибрайский район, Сход граждан махалли «Уткир», улица Уткир, дом 217",
     "en": "217 Utkir Street, Utkir Citizens' Assembly Mahalla Qibray District, Tashkent Region"
   },
   "map_embed": "",
   "email": "visolakarimovna@gmail.com",
-  "map_link": "",
-  "locality": {
-    "uz": "Qibray tumani",
-    "ru": "Кибрайский район",
-    "en": "Qibray District"
-  },
-  "region": {
-    "uz": "Toshkent viloyati",
-    "ru": "Ташкентская область",
-    "en": "Tashkent Region"
-  },
-  "google_verification": "",
-  "yandex_verification": ""
+  "map_link": ""
 }
